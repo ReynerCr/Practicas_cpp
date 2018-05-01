@@ -3,8 +3,8 @@
 
 #include "Persona.h"
 
-class Empleado : virtual public Persona {
-	private:
+class Empleado : public Persona {
+	protected:
 		char profesion[40];
 		float sueldo;
 		short unsigned annosServicio;
@@ -12,7 +12,10 @@ class Empleado : virtual public Persona {
 		
 	public:
 		Empleado();
-		Empleado(char[], float, short unsigned, float);
+		Empleado(int, short unsigned, char [], char, char[], float, short unsigned, float);
+		
+		void cargarDatos();
+		void mostrarDatos();
 		
 		~Empleado();
 };

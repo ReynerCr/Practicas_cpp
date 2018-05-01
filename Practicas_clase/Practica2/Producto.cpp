@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string.h>
+#include <ctype.h>
 #include "Producto.h"
 
 using namespace std;
@@ -32,7 +33,7 @@ void Producto::cargarDatos() {
 	cin.sync();
 	cout<<"Precio: "; cin>>precio;
 	cin.sync();
-	cout<<"Estado: "; cin>>estado;
+	cout<<"Estado: "; estado = tolower(cin.get());
 }
 
 void Producto::mostrarDatos() {
@@ -40,12 +41,7 @@ void Producto::mostrarDatos() {
 	cout<<"Codigo: "<<this->codigo<<endl;
 	cout<<"Precio: "<<this->precio<<endl;
 	
-	if (this->estado=='A' || estado=='a') {
-		cout<<"Producto activo."<<endl;	
-	}
-	else {
-		cout<<"Producto no activo."<<endl;
-	}
+	cout<<(estado == 'a' ?"Producto activo":"Producto no activo")<<endl;
 }
 
 void Producto::setCodigo(int codigo) {

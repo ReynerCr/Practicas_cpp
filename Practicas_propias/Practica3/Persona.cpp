@@ -27,8 +27,6 @@ void Persona::cargarDatos() {
 	cout<<"Ingrese nombre: "; cin.getline(nombre, 49);
 	cin.sync();
 	cout<<"Ingrese sexo (M/F): "; cin.get(sexo);
-	
-	cout<<endl;
 }
 
 void Persona::mostrarDatos() {
