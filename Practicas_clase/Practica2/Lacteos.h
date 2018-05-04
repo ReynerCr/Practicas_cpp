@@ -8,7 +8,7 @@ class Lacteos: public Producto{
 	
 	public: 
 		Lacteos();
-		Lacteos(char[], int, char[], float, char);
+		Lacteos(int, char[], float, char, char[]);
 		
 		void setCaducidad(char[]);
 		char *getCaducidad();

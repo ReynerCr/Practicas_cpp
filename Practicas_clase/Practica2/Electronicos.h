@@ -8,8 +8,8 @@ class Electronicos: public Producto {
 		int voltaje;
 	
 	public:
-		Electronicos();
-		Electronicos(int, int, char [], float, char);
+		Electronicos();  //defecto
+		Electronicos(int, char[], float, char, int);  //parametrico normal
 		
 		void setVoltaje(int);
 		int getVoltaje();

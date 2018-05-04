@@ -8,7 +8,7 @@ Electronicos::Electronicos(): Producto() {
 	voltaje = 0;
 }
 
-Electronicos::Electronicos(int voltaje, int codigo, char nombre[50], float precio, char estado) : Producto(codigo, nombre, precio, estado) {
+Electronicos::Electronicos(int codigo, char nombre[50], float precio, char estado, int voltaje) : Producto(codigo, nombre, precio, estado) {
 	this->voltaje = voltaje;
 }
 

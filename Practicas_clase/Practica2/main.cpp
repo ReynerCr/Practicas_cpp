@@ -43,9 +43,10 @@ int main() {
 	for (int i=N; N<100; i++) {
 		objeto[i] = NULL;
 		delete objeto[i];
-	}*/  //---------------------------FIN PRODUCTO
+	}*/  //---------------------------FIN PRIMERA CLASE, PRODUCTO
 	
-/*   ------------------------------------------------------------INGREDIENTE	
+	
+/*   ------------------------------------------------------------ PRACTICAINGREDIENTE	
 	//1. Crear un objeto estatico con el constructor por defecto
 	Ingrediente harina();  
 	
@@ -102,10 +103,65 @@ int main() {
 	for (int i=0; i<N; i++) {
 		ingredientes[i]->calcularPrecio();
 		ingredientes[i]->mostDatEnLinea();
-	}*/   //-------------------------------------------------FIN INGREDIENTE
+	}*/   //-------------------------------------------------FIN PRACTICA INGREDIENTE
 	
 	
+	// Constructor sin pasar objeto
+	Producto *reloj = new Producto(6, "Reloj", 100000.00, 'n', 5);
+	reloj->mostrarDatos();
+	reloj = 0;
+	delete reloj;
+	//---------------
+	cin.sync();
+	cout<<endl;
+	system("pause");
+	system("cls");
+	// Constructor parametrico pasando objetos
+	Ingrediente **ingTorta;
+	ingTorta = new Ingrediente *[1];
+	Producto *torta = new Producto(1, "Torta", 20000.00, 'a', 1, ingTorta);
+	torta->mostrarDatos();
 	
+	torta = 0;
+	delete torta;
+	
+	for (int i=0; i<sizeof(ingTorta); i++) {
+		ingTorta[i]=NULL;
+		delete ingTorta[i];
+	}
+	//---------------
+	int p;
+	
+	cout<<endl;
+	cin.sync();
+	system("pause");
+	system("cls");
+	// Llenado con cargarDatos desde main
+	Producto *computadora = new Producto();
+	computadora->cargarDatos();
+	cout<<endl;
+	computadora->mostrarDatos();
+	
+	cout<<endl;
+	cin.sync();
+	system("pause");
+	system("cls");
+	
+	//no hay validacion, cambiar los datos de una posicion del vector
+	cout<<"Ingrese la posicion que desee modificar del vector: "; cin.sync(); cin>>p;
+	Ingrediente *remplazo = new Ingrediente(p, "raton", "cm", 100000.00, 130000.00);
+	cout<<endl;
+	computadora->setFormulaI(p, remplazo);
+	system("cls");
+	
+	//no hay validacion, mostrar los datos de una posicion del vector
+	cout<<"Ingrese la posicion que desee ver del vector: "; cin.sync(); cin>>p;
+	cout<<endl;
+	computadora->getFormulaI(p)->mostDatEnLinea();
+	
+	computadora = 0;
+	delete computadora;
+	//--------------- FIN
 	cin.sync();
 	cin.get();
 	return 0;

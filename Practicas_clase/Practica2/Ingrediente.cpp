@@ -21,13 +21,12 @@ Ingrediente::Ingrediente(int codigo, char* nombre, char* unidadMedida, float cos
 }
 
 void Ingrediente::cargarDatos() {
-	cout<<"Ingrese los datos del producto."<<endl;
+	cout<<"Ingrese los datos del ingrediente."<<endl;
 	cout<<"Ingrese codigo: "; cin.sync(); cin>>this->codigo;
 	cout<<"Ingrese nombre: "; cin.sync(); cin.getline(this->nombre, 29);
 	cout<<"Ingrese unidad de medida: "; cin.sync(); cin.getline(this->unidadMedida, 19);
 	cout<<"Ingrese costo: "; cin.sync(); cin>>this->costo;
-	this->precio = 0.0;
-	cout<<endl;
+	this->precio = 0.0; cout<<endl;
 }
 
 void Ingrediente::mostrarDatos() {
@@ -35,7 +34,7 @@ void Ingrediente::mostrarDatos() {
 	cout<<"Nombre: "<<this->nombre<<endl;
 	cout<<"Unidad de medida: "<<this->unidadMedida<<endl;
 	cout<<"Costo: "<<this->costo<<endl;
-	cout<<"Precio: "<<this->precio<<endl<<endl;
+	cout<<"Precio: "<<this->precio<<endl;
 }
 
 void Ingrediente::mostDatEnLinea() {

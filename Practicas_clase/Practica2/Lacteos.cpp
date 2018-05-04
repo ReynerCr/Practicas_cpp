@@ -1,15 +1,16 @@
 #include <iostream>
 #include <string.h>
 #include "Lacteos.h"
+#include "Producto.h"
 
 using namespace std;
 
 
-Lacteos::Lacteos() {
+Lacteos::Lacteos(): Producto() {
 	strcpy (caducidad, " ");
 }
 
-Lacteos::Lacteos(char caducidad[12], int codigo, char nombre[50], float precio, char estado) : Producto(codigo,  nombre, precio, estado) {	
+Lacteos::Lacteos(int codigo, char nombre[], float precio, char estado, char caducidad[]) : Producto(codigo, nombre, precio, estado) {	
 	strcpy (this->caducidad, caducidad);
 }
 

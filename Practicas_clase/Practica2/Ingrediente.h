@@ -7,11 +7,11 @@ class Ingrediente {
 		char nombre[30];
 		char unidadMedida[20];
 		float costo;
-		float precio;		
+		float precio;
 		
 	public:
-		Ingrediente();
-		Ingrediente(int, char*, char*, float, float);
+		Ingrediente(); //por defecto
+		Ingrediente(int, char[], char[], float, float);  //parametrico normal
 		
 		void cargarDatos();
 		void mostrarDatos();
