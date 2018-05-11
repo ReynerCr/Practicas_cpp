@@ -2,6 +2,7 @@
 #define LACTEOS_H
 #include "Producto.h"
 
+
 class Lacteos: public Producto{
 	private:
 		char caducidad[12];

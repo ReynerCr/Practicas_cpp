@@ -3,8 +3,8 @@
 using namespace std;
 
 int main() {
-	int numero, auxiliar, tamanyoNumero=1, tamNumDiez, numFinal=0;
-	
+	int numero, tamanyoNumero=1, tamNumDiez, auxiliar, numFinal=0;
+
 	cout<<"\tVoltear un numero (entero)."<<endl;
 	cout<<"Ingrese numero: "; cin.sync(); cin>>numero;
 	
@@ -14,12 +14,13 @@ int main() {
 		tamanyoNumero++;
 		tamNumDiez *= 10;
 	}
+	
 	cout<<"Tamanyo del numero: "<<tamanyoNumero<<endl<<endl;
 	tamNumDiez /= 10;
 	
 	//ahora si, el volteo utilizando variables auxiliares
 	for (int i=tamNumDiez; i>0; i/=10) {
-		auxiliar = (numero%10)*i;
+		auxiliar = ((numero%10)*i);
 		numero /= 10;
 		numFinal += auxiliar;
 	}

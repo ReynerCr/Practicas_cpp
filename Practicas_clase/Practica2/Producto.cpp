@@ -86,11 +86,10 @@ void Producto::mostrarDatos() {
 	cout<<"Codigo: "<<this->codigo<<endl;
 	cout<<"Precio: "<<this->precio<<endl;
 	cout<<(estado == 'a' ?"Producto activo":"Producto no activo")<<endl;
-	cout<<endl<<"\tIngredientes:"<<endl;
+	cout<<endl<<"Ingredientes:"<<endl;
 	for (int i=0; i<canIngredientes; i++) {
-		cout<<(i+1)<<". ";
 		formula[i]->calcularPrecio();
-		formula[i]->mostDatEnLinea();  //aquí se puede usar mostrarDatos pero me parece que queda mejor asi
+		formula[i]->mostDatEnLinea();  //aquí se puede usar mostrarDatos de ingrediente pero me parece que queda mejor asi
 	}
 }
 
@@ -110,12 +109,35 @@ void Producto::setEstado(char estado) {
 	this->estado = estado;
 }
 
+void Producto::setCanIngredientes(int canIngredientes) {
+	if (this->canIngredientes<canIngredientes) {
+		for (int i=this->canIngredientes; i<canIngredientes; i++) {
+			formula[i] = new Ingrediente();
+			formula[i]->cargarDatos();
+			system("cls");
+		}
+	}
+	else {
+		for (int i=this->canIngredientes; i>canIngredientes; i--) {
+			formula[i] = 0;
+			delete formula[i];
+		}//OJO: BORRO LOS ELEMENTOS SOBRANTES PARA EVITAR ERRORES
+	}
+
+	this->canIngredientes = canIngredientes;
+	
+}
+
 void Producto::setFormula(Ingrediente** formula) {
 	this->formula = formula;
 }
 
 void Producto::setFormulaI(int p, Ingrediente *formula) {
 	this->formula[p] = formula;
+}
+
+void Producto::setFormulaIO(int p, Ingrediente formula) {
+	*(this->formula[p]) = formula;
 }
 
 int Producto::getCodigo() {
@@ -144,6 +166,10 @@ Ingrediente** Producto::getFormula() {
 
 Ingrediente* Producto::getFormulaI(int p) {
 	return formula[p];
+}
+
+char* Producto::getNomFormula(int p) {
+	return (this->formula[p]->getNombre());
 }
 
 Producto::~Producto() {

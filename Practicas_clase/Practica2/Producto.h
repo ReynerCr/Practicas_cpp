@@ -27,8 +27,10 @@ class Producto {
 		void setNombre(char[]);
 		void setPrecio(float);
 		void setEstado(char);
+		void setCanIngredientes(int);
 		void setFormula(Ingrediente**);
 		void setFormulaI(int, Ingrediente *);
+		void setFormulaIO(int, Ingrediente);
 		
 		int getCodigo();
 		char* getNombre ();
@@ -37,6 +39,8 @@ class Producto {
 		int getCanIngredientes();
 		Ingrediente** getFormula();
 		Ingrediente* getFormulaI(int);
+		char* getNomFormula(int);
+		
 		
 		~Producto(); 
 };
