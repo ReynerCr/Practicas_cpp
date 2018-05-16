@@ -86,10 +86,12 @@ void Producto::mostrarDatos() {
 	cout<<"Codigo: "<<this->codigo<<endl;
 	cout<<"Precio: "<<this->precio<<endl;
 	cout<<(estado == 'a' ?"Producto activo":"Producto no activo")<<endl;
-	cout<<endl<<"Ingredientes:"<<endl;
-	for (int i=0; i<canIngredientes; i++) {
-		formula[i]->calcularPrecio();
-		formula[i]->mostDatEnLinea();  //aquí se puede usar mostrarDatos de ingrediente pero me parece que queda mejor asi
+	if (canIngredientes>0) {
+		cout<<endl<<"Ingredientes:"<<endl;
+		for (int i=0; i<canIngredientes; i++) {
+			formula[i]->calcularPrecio();
+			formula[i]->mostDatEnLinea();  //aquí se puede usar mostrarDatos de ingrediente pero me parece que queda mejor asi
+		}
 	}
 }
 

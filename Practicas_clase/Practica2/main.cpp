@@ -12,161 +12,6 @@ void carDat1ProdElectronico (int, Electronicos*);
 
 int main() {
 	
-	//-----------------------------------------------PRODUCTO
-	/*	//Producto objeto;
-	Producto galleta (1, "crisp", 500.0, 'A');
-	//Producto perroC(2, "dog", 'A');
-	objeto.cargarDatos();
-	objeto.mostrarDatos();   //Esta fue la primera prueba
-	
-	//Producto objeto[100];  //objeto dinámico,  se usa -> para acceder
-	//Producto *objeto = new Producto();  //new declara espacio de memoria
-	
-	Producto** objeto = new Producto *[100];
-	int N=0;
-	char resp;
-	do {
-		objeto[N] = new Producto();
-		objeto[N]->cargarDatos();
-		N++;
-		cout<<endl<<"Hay otro producto? S/N    ";
-		cin.sync();
-		resp = tolower(cin.get());   //convertir a minúscula y toupper a mayúscula; o +32 o -32
-		system("cls");
-	} while (resp=='s' && N<100);
-	
-	//cout<<"Se han eliminado "<<(100-N)<<" productos."<<endl<<endl;
-	
-	for (int i=0; i<N; i++) {
-		objeto[i]->mostrarDatos();
-		cout<<endl;
-	}
-	
-	//BORRADO DE OBJETOS PARA CADENA COMPLETA:  delete [] objeto;
-	for (int i=N; N<100; i++) {
-		objeto[i] = NULL;
-		delete objeto[i];
-	}*/  //---------------------------FIN PRIMERA CLASE, PRODUCTO
-	
-	
-/*   ------------------------------------------------------------ PRACTICAINGREDIENTE	
-	//1. Crear un objeto estatico con el constructor por defecto
-	Ingrediente harina();  
-	
-	//2. Crear un objeto estatico usando el constructor parametrico y luego se muestran los datos
-	cout<<"2. ";
-	Ingrediente azucar(2, "azucar", "kilo", 150000.0, 228000.0);
-	azucar.mostrarDatos();
-	
-	//3. Crear un objeto dinamico usando el constructor por defecto, cargar sus datos y luego mostrarlos
-	cout<<"3. ";
-	Ingrediente *ingrediente = new Ingrediente(); 
-	ingrediente->cargarDatos();
-	ingrediente->mostrarDatos();
-	ingrediente = NULL;
-	delete ingrediente;
-	
-	//4. Crear un objeto dinamico usando el constructor parametrico y luego se muestran sus datos
-	cout<<"4. ";
-	Ingrediente *leche = new Ingrediente(4, "leche", "litro", 120000.0, 182400.0);
-	leche->mostrarDatos();
-	leche = NULL;
-	delete leche;
-	
-	//5.	Crear un vector dinámico, cargar datos, mostrar datos y calcular el precio de cada ingrediente. 
-	cout<<"5. ";
-	Ingrediente **ingredientes = new Ingrediente *[10];
-	
-	for (int i=0; i<10; i++) {  //Esto no es necesario ni optimo, porque en el do while de abajo se puede declarar antes de pedir nada, pero yo solo sigo instrucciones.
-		ingredientes[i] = new Ingrediente();
-	} 
-	
-	int N=0;
-	char resp;
-	
-	do {
-		//ingredientes[N] = new Ingrediente(); ----------- esta linea hubiese ahorrrado el for de arriba
-		ingredientes[N]->cargarDatos();
-		N++;
-		cout<<"Hay otro ingrediente? S/N   ";
-		cin.sync();
-		resp = tolower(cin.get());
-		cout<<endl;
-	} while (resp == 's' && N<10);
-	system ("cls");
-	
-	//Libero la memoria no utilizada, no lo pide el ejercicio pero es un extra.
-	if (N!=9) {
-		for (int i=N; i<10; i++) {
-			ingredientes[i] = NULL;
-			delete ingredientes[i];
-		}
-	}
-	
-	for (int i=0; i<N; i++) {
-		ingredientes[i]->calcularPrecio();
-		ingredientes[i]->mostDatEnLinea();
-	}*/   //-------------------------------------------------FIN PRACTICA INGREDIENTE
-	
-	/*
-	// Constructor sin pasar objeto
-	Producto *reloj = new Producto(6, "Reloj", 100000.00, 'n', 5);
-	reloj->mostrarDatos();
-	reloj = 0;
-	delete reloj;
-	//---------------
-	cin.sync();
-	cout<<endl;
-	system("pause");
-	system("cls");
-	// Constructor parametrico pasando objetos
-	Ingrediente **ingTorta;
-	ingTorta = new Ingrediente *[1];
-	Producto *torta = new Producto(1, "Torta", 20000.00, 'a', 1, ingTorta);
-	torta->mostrarDatos();
-	
-	torta = 0;
-	delete torta;
-	
-	for (int i=0; i<sizeof(ingTorta); i++) {
-		ingTorta[i]=NULL;
-		delete ingTorta[i];
-	}
-	//---------------
-	int p;
-	
-	cout<<endl;
-	cin.sync();
-	system("pause");
-	system("cls");
-	// Llenado con cargarDatos desde main
-	Producto *computadora = new Producto();
-	computadora->cargarDatos();
-	cout<<endl;
-	computadora->mostrarDatos();
-	
-	cout<<endl;
-	cin.sync();
-	system("pause");
-	system("cls");
-	
-	//no hay validacion, cambiar los datos de una posicion del vector
-	cout<<"Ingrese la posicion que desee modificar del vector: "; cin.sync(); cin>>p;
-	Ingrediente *remplazo = new Ingrediente(p, "raton", "cm", 100000.00, 130000.00);
-	cout<<endl;
-	computadora->setFormulaI(p, remplazo);
-	system("cls");
-	
-	//no hay validacion, mostrar los datos de una posicion del vector
-	cout<<"Ingrese la posicion que desee ver del vector: "; cin.sync(); cin>>p;
-	cout<<endl;
-	computadora->getFormulaI(p)->mostDatEnLinea();
-	
-	computadora = 0;
-	delete computadora;
-	//--------------- FIN
-	*/
-	
 	//l=iterador de lacteos; e=interador de electronicos;  L=cantidad de elemento lacteos; E=cantidad de elemento electros; N= variable para switchs
 	//menus=menu principal; M=variable para los submenus; P=Producto a modificar
 	int N, l=0, e=0, L, E, M, P, menu;
@@ -229,8 +74,8 @@ int main() {
 					for (int i=0; i<l; i++) {
 						cout<<(i+1)<<". ";
 						pLacteos[i]->mostrarDatos();
+						cout<<endl<<endl<<endl<<endl;
 					}
-					cout<<endl<<endl;
 				}
 				else 
 					cout<<"No se han cargado elementos en lacteos.";
@@ -238,10 +83,11 @@ int main() {
 				
 			case 4:
 				if (e>0) {
-					for (int i=0; i<e; i++) {
+					for (int i=0; i<e;	 i++) {
+						cout<<(i+1)<<". ";
 						pElectronicos[i]->mostrarDatos();
+						cout<<endl<<endl<<endl<<endl;
 					}
-					cout<<endl<<endl;
 				}
 				else  
 					cout<<"No se han cargado elementos en electronicos.";
@@ -272,7 +118,7 @@ int main() {
 						cout<<"No hay electronicos registrados."<<endl;
 					}
 					
-					else { //else para comproar si hay productos del valor ingresado
+					else { //else para comprobar si hay productos del valor ingresado
 						do {
 							cout<<"Cual de los productos desea modificar?"<<endl<<endl;
 							if (M==1) {
@@ -289,12 +135,13 @@ int main() {
 							
 							cin.sync();
 							cin>>P;
-							if (P<1 || (M==1 ?P>l:P>e)) {
+							P -= 1;
+							if (P<0 || (M==1 ?P>=l:P>=e)) {
 								cout<<"Valor no valido, reingrese luego de la pausa."<<endl;
 								system("pause");
 							}
 							system("cls");
-						} while (P<1 || (M==1 ?P>l:P>e)); //validacion de P
+						} while (P<0 || (M==1 ?P>=l:P>=e)); //validacion de P
 						
 						do { //Menu para preguntar cual atributo modificar
 							cout<<"Que atributo desea modificar?"<<endl
@@ -314,7 +161,6 @@ int main() {
 								system("cls");
 						} while (N<1 || N>8);
 						
-						//esto no funciona
 						if (M==1) {
 							carDat1ProdLacteo(N, pLacteos[P]);
 						}
@@ -325,23 +171,34 @@ int main() {
 				}//else para comprobar si existe al menos 1 producto
 				break;
 			
+			//OJO AQUI, POSIBLE PROBLEMA AL CAMBIAR INGREDIENTES, EL **INGREDIENTE NO SE Ha CAMBIADO OUO
 			case 6:
 				if (e==0 && l==0) {
 					cout<<"No se han cargado elementos.";
 				}
 				else {
 					for (int i=0; i<l; i++)  { //Reporte de los elementos de lacteos
-						cout<<pLacteos[i]->getCodigo()<<"\t"<<pLacteos[i]->getNombre()<<"\t"<<pLacteos[i]->getPrecio()<<"\t"<<pLacteos[i]->getEstado()<<"\tLacteo\t"<<pLacteos[i]->getCanIngredientes()<<"\t"<<pLacteos[i]->getNomFormula(0)<<endl;
-						for (int j=1; j<pLacteos[i]->getCanIngredientes(); j++) {
-							cout<<"\t\t\t\t\t"<<pLacteos[i]->getNomFormula(j)<<endl;
+						cout<<pLacteos[i]->getCodigo()<<"\t"<<pLacteos[i]->getNombre()<<"\t"<<pLacteos[i]->getPrecio()<<"\t"<<pLacteos[i]->getEstado()<<"\tLacteo\t"<<pLacteos[i]->getCanIngredientes();
+						if (pLacteos[i]->getCanIngredientes()>0) {
+							cout<<"\t"<<pLacteos[i]->getNomFormula(0)<<endl;
+							for (int j=1; j<pLacteos[i]->getCanIngredientes(); j++) {
+								cout<<"\t\t\t\t\t\t"<<pLacteos[i]->getNomFormula(j)<<endl;
+							}
 						}
+						else
+							cout<<endl;
 					}
 					
 					for (int i=0; i<e; i++) { 	//Reporte de los elementos de electronicos
-						cout<<pElectronicos[i]->getCodigo()<<"\t"<<pElectronicos[i]->getNombre()<<"\t"<<pElectronicos[i]->getPrecio()<<"\t"<<pElectronicos[i]->getEstado()<<"\tElectronico\t"<<pElectronicos[i]->getCanIngredientes()<<"\t"<<pElectronicos[i]->getNomFormula(0)<<endl;
-						for (int j=1; j<pElectronicos[i]->getCanIngredientes(); j++) {
-							cout<<"\t\t\t\t\t"<<pElectronicos[i]->getNomFormula(j)<<endl;
+						cout<<pElectronicos[i]->getCodigo()<<"\t"<<pElectronicos[i]->getNombre()<<"\t"<<pElectronicos[i]->getPrecio()<<"\t"<<pElectronicos[i]->getEstado()<<"\tElectronico\t"<<pElectronicos[i]->getCanIngredientes();
+						if (pElectronicos[i]->getCanIngredientes()>0) {
+							cout<<"\t"<<pElectronicos[i]->getNomFormula(0)<<endl;
+							for (int j=1; j<pElectronicos[i]->getCanIngredientes(); j++) {
+								cout<<"\t\t\t\t\t\t"<<pElectronicos[i]->getNomFormula(j)<<endl;
+							}
 						}
+						else
+							cout<<endl;
 					}	
 				}
 				break;
@@ -353,10 +210,10 @@ int main() {
 				cout<<"Valor no valido, reingrese después de la pausa.";
 				break;
 		}//switch
-		cin.sync(); 
+		cin.sync();
 		cout<<endl;
 		system("pause");
-	} while (M!=7);
+	} while (menu!=7);
 	return 0;
 }
 
@@ -393,18 +250,22 @@ void carDat1ProdLacteo (int N, Lacteos *prod) {
 			prod->setCanIngredientes(aux);
 			break;
 		case 6:
-			do {
-				cout<<"Que ingrediente desea cambiar? "<<endl;
-				for (int i=0; i<prod->getCanIngredientes(); i++) {
-					cout<<(i+1)<<". "<<prod->getNomFormula(i)<<endl;
-				}
-				cin.sync(); cin>>aux;
-				if (aux<0 || aux>prod->getCanIngredientes()) {
-					cout<<"Valor no valido, reingrese despues de la pausa.";
-					system("pause");
-				}
-			} while (aux<0 || aux>prod->getCanIngredientes());
-			prod->setFormulaIO(aux, ing);
+			if (prod->getCanIngredientes()>0) {
+				do {
+					cout<<"Que ingrediente desea cambiar? "<<endl;
+					for (int i=0; i<prod->getCanIngredientes(); i++) {
+						cout<<(i+1)<<". "<<prod->getNomFormula(i)<<endl;
+					}
+					cin.sync(); cin>>aux;
+					if (aux<0 || aux>prod->getCanIngredientes()) {
+						cout<<"Valor no valido, reingrese despues de la pausa.";
+						system("pause");
+					}
+				} while (aux<0 || aux>prod->getCanIngredientes());
+				prod->setFormulaIO(aux, ing);
+			}
+			else
+				cout<<"El producto no tiene ingredientes.";
 			break;
 		case 7:
 			cout<<"Ingrese la caducidad de "<<prod->getNombre()<<": ";
@@ -450,18 +311,23 @@ void carDat1ProdElectronico (int N, Electronicos *prod) {
 			prod->setCanIngredientes(aux);
 			break;
 		case 6:
-			do {
-				cout<<"Que ingrediente desea cambiar? "<<endl;
-				for (int i=0; i<prod->getCanIngredientes(); i++) {
-					cout<<(i+1)<<". "<<prod->getNomFormula(i)<<endl;
-				}
-				cin.sync(); cin>>aux;
-				if (aux<0 || aux>prod->getCanIngredientes()) {
-					cout<<"Valor no valido, reingrese despues de la pausa.";
-					system("pause");
-				}
-			} while (aux<0 || aux>prod->getCanIngredientes());
-			prod->setFormulaIO(aux, ing);
+			if (prod->getCanIngredientes()>0) {
+		
+				do {
+					cout<<"Que ingrediente desea cambiar? "<<endl;
+					for (int i=0; i<prod->getCanIngredientes(); i++) {
+						cout<<(i+1)<<". "<<prod->getNomFormula(i)<<endl;
+					}
+					cin.sync(); cin>>aux;
+					if (aux<0 || aux>prod->getCanIngredientes()) {
+						cout<<"Valor no valido, reingrese despues de la pausa.";
+						system("pause");
+					}
+				} while (aux<0 || aux>prod->getCanIngredientes());
+				prod->setFormulaIO(aux, ing);
+			}
+			else
+				cout<<"El producto no tiene ingredientes.";
 			break;
 		case 7:
 			cout<<"Ingrese el voltaje de "<<prod->getNombre()<<": ";
