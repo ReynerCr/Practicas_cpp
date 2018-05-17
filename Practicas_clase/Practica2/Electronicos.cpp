@@ -22,12 +22,12 @@ int Electronicos::getVoltaje() {
 
 void Electronicos::cargarDatos() {
 	this->Producto::cargarDatos();
-	cout<<"Voltaje: "; cin.sync(); cin>>voltaje;
+	cout<<endl<<endl<<"Voltaje: "; cin.sync(); cin>>voltaje;
 }
 
 void Electronicos::mostrarDatos() {
 	this->Producto::mostrarDatos();
-	cout<<"Voltaje: "<<voltaje<<endl;
+	cout<<endl<<endl<<"Voltaje: "<<voltaje<<endl;
 }
 
 Electronicos::~Electronicos() {

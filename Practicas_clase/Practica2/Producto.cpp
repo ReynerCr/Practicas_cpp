@@ -78,6 +78,7 @@ void Producto::cargarDatos() {
 		formula[i] = new Ingrediente();
 		cout<<(i+1)<<". ";
 		formula[i]->cargarDatos();
+		formula[i]->calcularPrecio();
 	}
 }
 
@@ -89,7 +90,6 @@ void Producto::mostrarDatos() {
 	if (canIngredientes>0) {
 		cout<<endl<<"Ingredientes:"<<endl;
 		for (int i=0; i<canIngredientes; i++) {
-			formula[i]->calcularPrecio();
 			formula[i]->mostDatEnLinea();  //aquí se puede usar mostrarDatos de ingrediente pero me parece que queda mejor asi
 		}
 	}
@@ -112,25 +112,44 @@ void Producto::setEstado(char estado) {
 }
 
 void Producto::setCanIngredientes(int canIngredientes) {
-	if (this->canIngredientes<canIngredientes) {
+	Ingrediente **form;
+	form = new Ingrediente *[canIngredientes];	
+	//Arreglo del vector formula dependiendo de la canIngredientes ingresada
+	if (this->canIngredientes<canIngredientes) {		
+		for (int i=0; i<canIngredientes; i++) {
+			form[i] = new Ingrediente();
+			form[i] = this->formula[i];
+		}//copio todo lo de formula original a formula nueva (que tiene tamaño mayor)
+		
 		for (int i=this->canIngredientes; i<canIngredientes; i++) {
-			formula[i] = new Ingrediente();
-			formula[i]->cargarDatos();
+			form[i] = new Ingrediente();
+			cout<<(i+1)<<". ";
+			form[i]->cargarDatos();
+			form[i]->calcularPrecio();
 			system("cls");
-		}
+		}//creo las nuevas formulas
+		
+		for (int i=0; i<this->canIngredientes; i++) {
+			this->formula[i] = 0;
+			delete this->formula[i];
+		}//borro el vector original, ya que luego form sera el nuevo formula
+		
+		this->Producto::setFormula(form); //aqui hago que formula apunte a form.
+		form = 0; //elimino el punto a esa dirección
+		delete []form;
 	}
+	
 	else {
 		for (int i=this->canIngredientes; i>canIngredientes; i--) {
-			formula[i] = 0;
-			delete formula[i];
-		}//OJO: BORRO LOS ELEMENTOS SOBRANTES PARA EVITAR ERRORES
+			this->formula[i] = 0;
+			delete this->formula[i];
+		}//borro elementos sobrantes para evitar errores
 	}
-
-	this->canIngredientes = canIngredientes;
 	
+	this->canIngredientes = canIngredientes;
 }
 
-void Producto::setFormula(Ingrediente** formula) {
+void Producto::setFormula(Ingrediente **formula) {
 	this->formula = formula;
 }
 

@@ -25,8 +25,7 @@ void Ingrediente::cargarDatos() {
 	cout<<"Ingrese codigo: "; cin.sync(); cin>>this->codigo;
 	cout<<"Ingrese nombre: "; cin.sync(); cin.getline(this->nombre, 29);
 	cout<<"Ingrese unidad de medida: "; cin.sync(); cin.getline(this->unidadMedida, 19);
-	cout<<"Ingrese costo: "; cin.sync(); cin>>this->costo;
-	this->precio = 0.0; cout<<endl;
+	cout<<"Ingrese costo: "; cin.sync(); cin>>this->costo;	
 }
 
 void Ingrediente::mostrarDatos() {

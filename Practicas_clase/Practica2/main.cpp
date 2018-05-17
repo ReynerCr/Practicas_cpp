@@ -4,6 +4,7 @@
 #include "Lacteos.h"
 #include "Electronicos.h"
 #include <ctype.h>  //libreria de tolower y toupper
+#include <vector>
 
 using namespace std;
 
@@ -171,7 +172,6 @@ int main() {
 				}//else para comprobar si existe al menos 1 producto
 				break;
 			
-			//OJO AQUI, POSIBLE PROBLEMA AL CAMBIAR INGREDIENTES, EL **INGREDIENTE NO SE Ha CAMBIADO OUO
 			case 6:
 				if (e==0 && l==0) {
 					cout<<"No se han cargado elementos.";
@@ -242,11 +242,18 @@ void carDat1ProdLacteo (int N, Lacteos *prod) {
 		case 4:
 			cout<<"Ingrese estado de "<<prod->getNombre()<<": ";
 			cin.sync(); letra = tolower(cin.get());
-			prod->setPrecio(letra);
+			prod->setEstado(letra);
 			break;
 		case 5:
-			cout<<"Ingrese cantidad de ingredientes de "<<prod->getNombre()<<": ";
-			cin.sync(); cin>>aux;
+			do {
+				cout<<"Ingrese cantidad de ingredientes de "<<prod->getNombre()<<": ";
+				cin.sync(); cin>>aux;
+				if (aux<0) {
+					cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
+					system("pause");
+				}
+				system("cls");
+			} while (aux<0);
 			prod->setCanIngredientes(aux);
 			break;
 		case 6:
@@ -258,10 +265,13 @@ void carDat1ProdLacteo (int N, Lacteos *prod) {
 					}
 					cin.sync(); cin>>aux;
 					if (aux<0 || aux>prod->getCanIngredientes()) {
-						cout<<"Valor no valido, reingrese despues de la pausa.";
+						cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
 						system("pause");
 					}
+					system("cls");
 				} while (aux<0 || aux>prod->getCanIngredientes());
+				ing.cargarDatos();
+				aux -= 1;
 				prod->setFormulaIO(aux, ing);
 			}
 			else
@@ -276,7 +286,7 @@ void carDat1ProdLacteo (int N, Lacteos *prod) {
 			prod->cargarDatos();
 			break;
 	}
-}// carDat1Producto
+}// carDat1ProdLacteo
 
 void carDat1ProdElectronico (int N, Electronicos *prod) {
 	int aux;
@@ -291,28 +301,34 @@ void carDat1ProdElectronico (int N, Electronicos *prod) {
 			prod->setCodigo(aux);
 			break;
 		case 2:
-			cout<<"Ingrese precio de "<<prod->getNombre()<<": ";
-			cin.sync(); cin>>auxf;
-			prod->setPrecio(auxf);
-			break;
-		case 3:
 			cout<<"Ingrese nuevo nombre de "<<prod->getNombre()<<": ";
 			cin.sync(); cin.getline(nom, 49);
 			prod->setNombre(nom);
 			break;
+		case 3:
+			cout<<"Ingrese precio de "<<prod->getNombre()<<": ";
+			cin.sync(); cin>>auxf;
+			prod->setPrecio(auxf);
+			break;
 		case 4:
 			cout<<"Ingrese estado de "<<prod->getNombre()<<": ";
 			cin.sync(); letra = tolower(cin.get());
-			prod->setPrecio(letra);
+			prod->setEstado(letra);
 			break;
 		case 5:
-			cout<<"Ingrese cantidad de ingredientes de "<<prod->getNombre()<<": ";
-			cin.sync(); cin>>aux;
+			do {
+				cout<<"Ingrese cantidad de ingredientes de "<<prod->getNombre()<<": ";
+				cin.sync(); cin>>aux;
+				if (aux<0) {
+					cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
+					system("pause");
+				}
+				system("cls");
+			} while (aux<0);
 			prod->setCanIngredientes(aux);
 			break;
 		case 6:
 			if (prod->getCanIngredientes()>0) {
-		
 				do {
 					cout<<"Que ingrediente desea cambiar? "<<endl;
 					for (int i=0; i<prod->getCanIngredientes(); i++) {
@@ -320,18 +336,28 @@ void carDat1ProdElectronico (int N, Electronicos *prod) {
 					}
 					cin.sync(); cin>>aux;
 					if (aux<0 || aux>prod->getCanIngredientes()) {
-						cout<<"Valor no valido, reingrese despues de la pausa.";
+						cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
 						system("pause");
 					}
+					system("cls");
 				} while (aux<0 || aux>prod->getCanIngredientes());
+				ing.cargarDatos();
+				aux -= 1;
 				prod->setFormulaIO(aux, ing);
 			}
 			else
 				cout<<"El producto no tiene ingredientes.";
 			break;
 		case 7:
-			cout<<"Ingrese el voltaje de "<<prod->getNombre()<<": ";
-			cin.sync(); cin>>aux;
+			do {
+				cout<<"Ingrese el voltaje de "<<prod->getNombre()<<": ";
+				cin.sync(); cin>>aux;
+				if (aux<=0) {
+					cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
+					system("pause");
+				}	
+				system("cls");
+			} while (aux<0);
 			prod->setVoltaje(aux);
 			break;
 		case 8:

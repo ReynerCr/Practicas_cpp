@@ -24,12 +24,12 @@ char* Lacteos::getCaducidad() {
 
 void Lacteos::cargarDatos() {
 	this->Producto::cargarDatos();
-	cout<<"Caducidad: "; cin.sync(); cin.getline(this->caducidad, 11);
+	cout<<endl<<endl<<"Caducidad: "; cin.sync(); cin.getline(this->caducidad, 11);
 }
 
 void Lacteos::mostrarDatos() {
 	this->Producto::mostrarDatos();
-	cout<<"Caducidad: "<<caducidad;
+	cout<<endl<<endl<<"Caducidad: "<<caducidad;
 }
 
 Lacteos::~Lacteos() {
