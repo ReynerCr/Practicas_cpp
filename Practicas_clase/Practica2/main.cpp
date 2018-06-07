@@ -1,15 +1,14 @@
-#include <iostream>	   //parentesis angulares (<>) busca en otras rutas
-#include "Producto.h"  //comillas busca en el MISMO directorio y en otras rutas	
+#include <iostream>	   
+#include "Producto.h" 
 #include "Ingrediente.h"
 #include "Lacteos.h"
 #include "Electronicos.h"
 #include <ctype.h>  //libreria de tolower y toupper
-#include <vector>
+#include <typeinfo>
 
 using namespace std;
 
-void carDat1ProdLacteo (int, Lacteos*);
-void carDat1ProdElectronico (int, Electronicos*);
+void carDat1Producto (int, int, Lacteos*, Electronicos*);
 
 int main() {
 	
@@ -163,10 +162,10 @@ int main() {
 						} while (N<1 || N>8);
 						
 						if (M==1) {
-							carDat1ProdLacteo(N, pLacteos[P]);
+							carDat1Producto(N, M, pLacteos[P], pElectronicos[P]);
 						}
 						else {
-							carDat1ProdElectronico(N, pElectronicos[P]);
+							carDat1Producto(N, M, pLacteos[P], pElectronicos[P]);
 						}
 					}//else para comprobar si hay produtos del valor ingresado 
 				}//else para comprobar si existe al menos 1 producto
@@ -217,12 +216,20 @@ int main() {
 	return 0;
 }
 
-void carDat1ProdLacteo (int N, Lacteos *prod) {
+void carDat1Producto (int N, int M, Lacteos *lac, Electronicos *elec) {
 	int aux;
 	float auxf;
 	char nom[49];
 	char letra;
 	Ingrediente ing;
+	Producto *prod;
+	if (M==1) {
+		prod = lac;
+	}
+	else {
+		prod = elec;
+	}
+	
 	switch (N) {
 		case 1:
 			cout<<"Ingrese codigo de "<<prod->getNombre()<<": ";
@@ -278,90 +285,28 @@ void carDat1ProdLacteo (int N, Lacteos *prod) {
 				cout<<"El producto no tiene ingredientes.";
 			break;
 		case 7:
-			cout<<"Ingrese la caducidad de "<<prod->getNombre()<<": ";
-			cin.sync(); cin.getline(nom, 10);
-			prod->setCaducidad(nom);
-			break;
-		case 8:
-			prod->cargarDatos();
-			break;
-	}
-}// carDat1ProdLacteo
-
-void carDat1ProdElectronico (int N, Electronicos *prod) {
-	int aux;
-	float auxf;
-	char nom[49];
-	char letra;
-	Ingrediente ing;
-	switch (N) {
-		case 1:
-			cout<<"Ingrese codigo de "<<prod->getNombre()<<": ";
-			cin.sync(); cin>>aux;
-			prod->setCodigo(aux);
-			break;
-		case 2:
-			cout<<"Ingrese nuevo nombre de "<<prod->getNombre()<<": ";
-			cin.sync(); cin.getline(nom, 49);
-			prod->setNombre(nom);
-			break;
-		case 3:
-			cout<<"Ingrese precio de "<<prod->getNombre()<<": ";
-			cin.sync(); cin>>auxf;
-			prod->setPrecio(auxf);
-			break;
-		case 4:
-			cout<<"Ingrese estado de "<<prod->getNombre()<<": ";
-			cin.sync(); letra = tolower(cin.get());
-			prod->setEstado(letra);
-			break;
-		case 5:
-			do {
-				cout<<"Ingrese cantidad de ingredientes de "<<prod->getNombre()<<": ";
-				cin.sync(); cin>>aux;
-				if (aux<0) {
-					cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
-					system("pause");
-				}
-				system("cls");
-			} while (aux<0);
-			prod->setCanIngredientes(aux);
-			break;
-		case 6:
-			if (prod->getCanIngredientes()>0) {
-				do {
-					cout<<"Que ingrediente desea cambiar? "<<endl;
-					for (int i=0; i<prod->getCanIngredientes(); i++) {
-						cout<<(i+1)<<". "<<prod->getNomFormula(i)<<endl;
-					}
-					cin.sync(); cin>>aux;
-					if (aux<0 || aux>prod->getCanIngredientes()) {
-						cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
-						system("pause");
-					}
-					system("cls");
-				} while (aux<0 || aux>prod->getCanIngredientes());
-				ing.cargarDatos();
-				aux -= 1;
-				prod->setFormulaIO(aux, ing);
+			switch (M) {
+				case 1:
+					cout<<"Ingrese la caducidad de "<<prod->getNombre()<<": ";
+					cin.sync(); cin.getline(nom, 10);
+					lac->setCaducidad(nom);
+					break;
+				case 2:
+					do {
+						cout<<"Ingrese el voltaje de "<<prod->getNombre()<<": ";
+						cin.sync(); cin>>aux;
+						if (aux<=0) {
+							cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
+							system("pause");
+						}	
+						system("cls");
+						elec->setVoltaje(aux);
+					} while (aux<0);
+					break;
 			}
-			else
-				cout<<"El producto no tiene ingredientes.";
-			break;
-		case 7:
-			do {
-				cout<<"Ingrese el voltaje de "<<prod->getNombre()<<": ";
-				cin.sync(); cin>>aux;
-				if (aux<=0) {
-					cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
-					system("pause");
-				}	
-				system("cls");
-			} while (aux<0);
-			prod->setVoltaje(aux);
 			break;
 		case 8:
 			prod->cargarDatos();
 			break;
 	}
-}// carDat1ProdElectronico
+}// carDat1Producto
