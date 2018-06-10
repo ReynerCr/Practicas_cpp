@@ -7,6 +7,7 @@ using namespace std;
 
 Hibrido::Hibrido() {
 	strcpy(this->horasLibres, "cero tiempo, si no da pa estudiar...");
+	Estudiante::aux = true;
 }
 
 void Hibrido::cargarDatos() {
@@ -16,7 +17,7 @@ void Hibrido::cargarDatos() {
 }
 
 void Hibrido::mostrarDatos() {
-	Empleado::mostrarDatos();
+	Empleado::mostrarDatos(); 
 	Estudiante::mostrarDatos();
 	cout<<"Horas libres"<<horasLibres<<endl;
 }

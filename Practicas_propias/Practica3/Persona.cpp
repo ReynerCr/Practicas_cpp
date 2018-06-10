@@ -8,7 +8,8 @@ Persona::Persona() {
 	this->ci = 0;
 	strcpy (nombre, "");
 	this->edad = 0;
-	this->sexo = ' '; 
+	this->sexo = ' ';
+	this->aux = false;
 }
 
 Persona::Persona(int ci, short unsigned edad, char nombre[50], char sexo) {
@@ -16,17 +17,20 @@ Persona::Persona(int ci, short unsigned edad, char nombre[50], char sexo) {
 	strcpy(this->nombre, nombre);
 	this->edad = edad;
 	this->sexo = sexo; 
+	this->aux = false;
 }
 
 void Persona::cargarDatos() {
 	cout<<"Ingrese los datos de la persona: "<<endl;
-	cin.sync();
-	cout<<"C.I. (sin puntos ni la nacionalidad): ";  cin>>ci;
-	cout<<"Ingrese edad: "; cin>>edad;
-	cin.sync();
-	cout<<"Ingrese nombre: "; cin.getline(nombre, 49);
-	cin.sync();
-	cout<<"Ingrese sexo (M/F): "; cin.get(sexo);
+	cout<<"C.I. (sin puntos ni la nacionalidad): "; cin.sync(); cin>>ci;
+	while (ci<=0) {
+		cout<<"\tC.I no valida, reingrese: ";
+		cin.sync(); cin>>ci;
+	}
+	cout<<"Ingrese edad: "; cin.sync(); cin>>edad;
+	cout<<"Ingrese nombre: "; cin.sync(); cin.getline(nombre, 49);
+	cout<<"Ingrese sexo (M/F): "; cin.sync(); cin.get(sexo);
+	cout<<endl;
 }
 
 void Persona::mostrarDatos() {
@@ -34,7 +38,7 @@ void Persona::mostrarDatos() {
 	cout<<"C.I: "<<this->ci<<endl;
 	cout<<"Nombre: "<<this->nombre<<endl;
 	cout<<"Edad: "<<this->edad<<endl;
-	cout<<"Sexo: "<<((this->sexo == 'm' || this->sexo == 'M') ?"Masculino":"Femenino")<<endl;
+	cout<<"Sexo: "<<((this->sexo == 'm' || this->sexo == 'M') ?"Masculino":"Femenino")<<endl<<endl;
 }
 
 Persona::~Persona() {

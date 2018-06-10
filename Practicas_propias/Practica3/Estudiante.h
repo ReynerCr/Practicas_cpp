@@ -3,13 +3,12 @@
 
 #include "Persona.h"
 
-class Estudiante : public Persona {
-	protected: 
+class Estudiante : public Persona { 
+	public:
 		int semestre;
 		int numeroMaterias;
 		float promedio;
 			
-	public:
 		Estudiante();
 		Estudiante(int, short unsigned, char[], char, int, int, float);
 		

@@ -17,17 +17,21 @@ Estudiante::Estudiante(int ci, short unsigned edad, char nombre[49], char sexo, 
 }	
 	
 void Estudiante::cargarDatos() {
-	this->Persona::cargarDatos();
+	if (ci == 0)
+		this->Persona::cargarDatos();
 	cout<<"Semestre: "; cin.sync(); cin>>this->semestre;
 	cout<<"Numero de materias: "; cin.sync();  cin>>this->numeroMaterias;
 	cout<<"Promedio: "; cin.sync(); cin>>this->promedio;
+	cout<<endl;
 }	
 
 void Estudiante::mostrarDatos() {
-	this->Persona::mostrarDatos();
+	if (aux == false)
+		this->Persona::mostrarDatos();
 	cout<<"Semestre: "<<semestre<<endl;
 	cout<<"Numero de materias: "<<numeroMaterias<<endl;
 	cout<<"Promedio: "<<promedio<<endl;
+	cout<<endl;
 }	
 
 Estudiante::Estudiante::~Estudiante() {

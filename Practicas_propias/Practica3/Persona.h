@@ -2,13 +2,13 @@
 #define PERSONA_H
 
 class Persona {
-	protected:
+	public:
 		int ci;
 		short unsigned edad;
 		char nombre[50];
 		char sexo;
+		bool aux;
 	
-	public:
 		Persona();
 		Persona(int, short unsigned, char[], char);
 		

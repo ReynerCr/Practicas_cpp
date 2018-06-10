@@ -5,10 +5,9 @@
 #include "Empleado.h"
 
 class Hibrido : virtual public Estudiante, virtual public Empleado {
-	protected:
+	public:
 		char horasLibres[30];
 		
-	public:
 		Hibrido();
 		
 		void cargarDatos();

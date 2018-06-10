@@ -4,13 +4,12 @@
 #include "Persona.h"
 
 class Empleado : public Persona {
-	protected:
+	public:
 		char profesion[40];
 		float sueldo;
 		short unsigned annosServicio;
 		float indRendimiento;
 		
-	public:
 		Empleado();
 		Empleado(int, short unsigned, char [], char, char[], float, short unsigned, float);
 		

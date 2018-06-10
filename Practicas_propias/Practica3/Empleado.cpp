@@ -21,10 +21,12 @@ Empleado::Empleado(int ci, short unsigned edad, char nombre[50], char sexo, char
 
 void Empleado::cargarDatos() {
 	this->Persona::cargarDatos();
+	cout<<"Profesion: ";
 	cout<<"Ingrese el nombre de la profesion: "; cin.sync(); cin.getline(profesion, 40);
 	cout<<"Ingrese el sueldo: "; cin>>sueldo;
 	cout<<"Ingrese el numero de annos de servicio: "; cin>>annosServicio;
 	cout<<"Ingrese el indice de rendimiento: "; cin>>indRendimiento;
+	cout<<endl;
 }
 
 void Empleado::mostrarDatos() {
@@ -32,7 +34,7 @@ void Empleado::mostrarDatos() {
 	cout<<"Profesion: "<<profesion<<endl;
 	cout<<"Sueldo: "<<sueldo<<endl;
 	cout<<"Annos de servicio: "<<annosServicio<<endl;
-	cout<<"Indice de rendimiento: "<<indRendimiento<<endl;
+	cout<<"Indice de rendimiento: "<<indRendimiento<<endl<<endl;
 }
 
 Empleado::~Empleado() {
