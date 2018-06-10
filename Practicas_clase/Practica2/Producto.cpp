@@ -8,7 +8,7 @@ using namespace std;
 
 //por defecto
 Producto::Producto() {
-	codigo = 0;
+	codigo = -1;
 	strcpy (nombre, " ");
 	precio = 0.0;
 	estado = ' ';
@@ -68,6 +68,10 @@ Producto::Producto(int codigo, char nombre[], char estado) {
 void Producto::cargarDatos() {
 	cout<<"Ingrese los datos del producto"<<endl;
 	cout<<"Codigo: "; cin.sync(); cin>>codigo;
+	while (codigo<0) {
+		cout<<"\tCodigo debe ser mayor o igual a cero, reingrese: ";
+		cin.sync(); cin>>codigo;
+	}	
 	cout<<"Nombre: "; cin.sync(); cin.getline(nombre, 49);
 	cout<<"Precio: "; cin.sync(); cin>>precio;
 	cout<<"Estado: "; cin.sync(); estado = tolower(cin.get());
@@ -192,6 +196,11 @@ Ingrediente* Producto::getFormulaI(int p) {
 char* Producto::getNomFormula(int p) {
 	return (this->formula[p]->getNombre());
 }
+
+void Producto::setCaducidad(char *) {};
+void Producto::setVoltaje(int ) {};
+char* Producto::getCaducidad() {};
+int Producto::getVoltaje() {};
 
 Producto::~Producto() {
 }

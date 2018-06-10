@@ -5,32 +5,47 @@
 #include "Electronicos.h"
 #include <ctype.h>  //libreria de tolower y toupper
 #include <typeinfo>
+#define TAM 5
 
 using namespace std;
 
-void carDat1Producto (int, int, Lacteos*, Electronicos*);
+int detPosProducto(int, int, Producto **);
+void carDat1Producto (int, int, Producto **, int);
 
 int main() {
 	
 	//l=iterador de lacteos; e=interador de electronicos;  L=cantidad de elemento lacteos; E=cantidad de elemento electros; N= variable para switchs
-	//menus=menu principal; M=variable para los submenus; P=Producto a modificar
-	int N, l=0, e=0, L, E, M, P, menu;
-	Lacteos **pLacteos;
-	Electronicos **pElectronicos;
+	//menus=menu principal; M=variable para los submenus; P=producto a modificar, o auxiliar;
+	int N, M, P=0, menu;  //variable de menus
+	int l=0, e=0, L=0, E=0;
+	Producto *Productos[TAM];
 	
-	cout<<"Ingrese la cantidad de elementos que contendra el vector de lacteos: "; cin.sync(); cin>>L;
-	while (L<=0) {
-		cout<<endl<<"Reingrese la cantidad de elementos de lacteos: "; cin.sync(); cin>>L;		
-	}//validacion de L
-	pLacteos = new Lacteos *[L];
-	system("cls");
-	
-	cout<<"Ingrese la cantidad de elementos que contendra el vector de electronicos: "; cin.sync(); cin>>E;
-	while (E<=0) {
-		cout<<endl<<"Reingrese la cantidad de elementos de electronicos: "; cin.sync(); cin>>E;	
-	}//validacion de E
-	pElectronicos = new Electronicos *[E]; 	
- 
+ 	do {
+ 		cout<<P<<" de "<<TAM<<" elementos cargados."<<endl
+		 	<<"Que desea ingresar?"<<endl
+ 			<<"1. Lacteo."<<endl
+ 			<<"2. Electronico."<<endl;
+ 		
+ 		cin.sync();
+ 		cin>>menu;
+ 		
+ 		if (menu==1) {
+ 			Productos[P] = new Lacteos;
+ 			L++;
+		}
+		else if (menu==2) {
+		 	Productos[P] = new Electronicos;
+		 	E++;
+		}
+		else {
+			cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
+			system("pause");
+			P--;
+		}
+		system("cls");
+ 		P++;
+	 } while (P<TAM);
+ 	
 	do {
 		system("cls");
 		cout<<"1. Cargar datos de un lacteo."<<endl
@@ -39,7 +54,8 @@ int main() {
 			<<"4. Mostrar datos de electronicos"<<endl
 			<<"5. Modificar algun dato de alguna posicion de un vector."<<endl
 			<<"6. Reporte de todos los productos."<<endl
-			<<"7. Salir"<<endl;
+			<<"7. Recuento de elementos ingresados."<<endl
+			<<"8. Salir."<<endl;
 			
 		cin.sync();
 		cin>>menu;
@@ -48,49 +64,57 @@ int main() {
 		switch (menu) {
 			case 1:
 				if (l<L) {
-					cout<<"Cargados "<<l<<" de "<<L<<" elementos."<<endl;
-					pLacteos[l] = new Lacteos();
-					pLacteos[l]->cargarDatos();
+					cout<<"Cargados "<<l<<" de "<<L<<" elementos lacteos."<<endl;
+					Productos[detPosProducto(l, menu, Productos)]->cargarDatos();
 					l++;
 				}
 				else 
-					cout<<"El vector de lacteos ya esta lleno.";
+					cout<<"No se puede cargar lacteo.";
 				
 				break;
 				
 			case 2:
 				if (e<E) {
-					cout<<"Cargados "<<e<<" de "<<L<<" elementos."<<endl;
-					pElectronicos[e] = new Electronicos();
-					pElectronicos[e]->cargarDatos();
+					cout<<"Cargados "<<e<<" de "<<E<<" elementos electronicos."<<endl;
+					Productos[detPosProducto(e, menu, Productos)]->cargarDatos();
 					e++;
 				}
 				else 
-					cout<<"El vector de electronicos ya esta lleno.";
+					cout<<"No se puede cargar electronicos.";
 				break;
 				
 			case 3:
 				if (l>0) {
-					for (int i=0; i<l; i++) {
-						cout<<(i+1)<<". ";
-						pLacteos[i]->mostrarDatos();
-						cout<<endl<<endl<<endl<<endl;
-					}
-				}
+					int i=0, aux=0;
+					while (aux<l && i<TAM) {
+						if (typeid (*Productos[i]) == typeid (Lacteos)) {
+							cout<<(aux+1)<<". ";
+							Productos[i]->mostrarDatos();
+							cout<<endl<<endl<<endl<<endl;
+							aux++;
+						}//if typeid
+						i++;
+					}//while
+				}//if l
 				else 
-					cout<<"No se han cargado elementos en lacteos.";
+					cout<<"No se han cargado elementos lacteos.";
 				break;
 				
 			case 4:
 				if (e>0) {
-					for (int i=0; i<e;	 i++) {
-						cout<<(i+1)<<". ";
-						pElectronicos[i]->mostrarDatos();
-						cout<<endl<<endl<<endl<<endl;
-					}
-				}
+					int i=0, aux=0;
+					while (aux<e && i<TAM) {
+						if (typeid (*Productos[i]) == typeid (Electronicos)) {
+							cout<<(aux+1)<<". ";
+							Productos[i]->mostrarDatos();
+							cout<<endl<<endl<<endl<<endl;
+							aux++;
+						}//if typeid
+						i++;
+					}//while
+				}//if e
 				else  
-					cout<<"No se han cargado elementos en electronicos.";
+					cout<<"No se han cargado elementos electronicos.";
 				break;
 				
 			case 5:
@@ -118,30 +142,42 @@ int main() {
 						cout<<"No hay electronicos registrados."<<endl;
 					}
 					
-					else { //else para comprobar si hay productos del valor ingresado
+					else {
 						do {
 							cout<<"Cual de los productos desea modificar?"<<endl<<endl;
-							if (M==1) {
-								for (int i=0; i<l; i++) {
-									cout<<(i+1)<<". "<<pLacteos[i]->getNombre()<<endl;
-								}//for para imprimir todos los nombres de electronicos
-							}
+							int i=0, aux=0;
 							
+							if (M==1) {
+								while (aux<l && i<TAM) {
+									if (typeid (*Productos[i]) == typeid (Lacteos)) {
+										cout<<(aux+1)<<". "<<Productos[i]->getNombre()<<endl;
+										aux++;
+									}//if typeid
+									i++;
+								}//while
+							}//else M==1
 							else {
-								for (int i=0; i<e; i++) {
-									cout<<(i+1)<<". "<<pElectronicos[i]->getNombre()<<endl;
-								}//for para imprimir todos los nombres de electronicos
-							}
+								while (aux<e && i<TAM) {
+									if (typeid (*Productos[i]) == typeid (Electronicos)) {
+										cout<<(aux+1)<<". "<<Productos[i]->getNombre()<<endl;
+										aux++;
+									}//if typeid
+									i++;
+								}//while
+							}//else M==2
 							
 							cin.sync();
 							cin>>P;
-							P -= 1;
+							P--;
+							
 							if (P<0 || (M==1 ?P>=l:P>=e)) {
 								cout<<"Valor no valido, reingrese luego de la pausa."<<endl;
 								system("pause");
 							}
 							system("cls");
 						} while (P<0 || (M==1 ?P>=l:P>=e)); //validacion de P
+						
+						P = detPosProducto(P, M, Productos);
 						
 						do { //Menu para preguntar cual atributo modificar
 							cout<<"Que atributo desea modificar?"<<endl
@@ -162,10 +198,10 @@ int main() {
 						} while (N<1 || N>8);
 						
 						if (M==1) {
-							carDat1Producto(N, M, pLacteos[P], pElectronicos[P]);
+							carDat1Producto(N, M, Productos, P);
 						}
 						else {
-							carDat1Producto(N, M, pLacteos[P], pElectronicos[P]);
+							carDat1Producto(N, M, Productos, P);
 						}
 					}//else para comprobar si hay produtos del valor ingresado 
 				}//else para comprobar si existe al menos 1 producto
@@ -176,84 +212,94 @@ int main() {
 					cout<<"No se han cargado elementos.";
 				}
 				else {
-					for (int i=0; i<l; i++)  { //Reporte de los elementos de lacteos
-						cout<<pLacteos[i]->getCodigo()<<"\t"<<pLacteos[i]->getNombre()<<"\t"<<pLacteos[i]->getPrecio()<<"\t"<<pLacteos[i]->getEstado()<<"\tLacteo\t"<<pLacteos[i]->getCanIngredientes();
-						if (pLacteos[i]->getCanIngredientes()>0) {
-							cout<<"\t"<<pLacteos[i]->getNomFormula(0)<<endl;
-							for (int j=1; j<pLacteos[i]->getCanIngredientes(); j++) {
-								cout<<"\t\t\t\t\t\t"<<pLacteos[i]->getNomFormula(j)<<endl;
+					for (int i=0; i<(l+e); i++)  { //Reporte de los elementos de lacteos
+						if (Productos[i]->getCodigo() >= 0) {
+							cout<<Productos[i]->getCodigo()<<"\t"<<Productos[i]->getNombre()<<"\t"<<Productos[i]->getPrecio()<<"\t"<<Productos[i]->getEstado()<<(typeid (*Productos[i]) == typeid (Lacteos) ?"\tLacteo\t":"\tElectronico\t")<<Productos[i]->getCanIngredientes();
+							if (Productos[i]->getCanIngredientes()>0) {
+								cout<<"\t"<<Productos[i]->getNomFormula(0)<<endl;
+								for (int j=1; j<Productos[i]->getCanIngredientes(); j++) {
+									cout<<"\t\t\t\t\t\t\t"<<Productos[i]->getNomFormula(j)<<endl;
+								}
 							}
-						}
-						else
+							else
+								cout<<endl;
 							cout<<endl;
-					}
-					
-					for (int i=0; i<e; i++) { 	//Reporte de los elementos de electronicos
-						cout<<pElectronicos[i]->getCodigo()<<"\t"<<pElectronicos[i]->getNombre()<<"\t"<<pElectronicos[i]->getPrecio()<<"\t"<<pElectronicos[i]->getEstado()<<"\tElectronico\t"<<pElectronicos[i]->getCanIngredientes();
-						if (pElectronicos[i]->getCanIngredientes()>0) {
-							cout<<"\t"<<pElectronicos[i]->getNomFormula(0)<<endl;
-							for (int j=1; j<pElectronicos[i]->getCanIngredientes(); j++) {
-								cout<<"\t\t\t\t\t\t"<<pElectronicos[i]->getNomFormula(j)<<endl;
-							}
-						}
-						else
-							cout<<endl;
-					}	
-				}
+						}//validacion para no imprimir productos no cargados
+					}//for
+				}//else
 				break;
 				
-			case 7: //salir, necesario el break para que no entre en default.
+			case 7:
+				cout<<"El numero de elementos lacteos actual es "<<l<<" de "<<L<<endl
+					<<"El numero de elementos electronicos actual es "<<e<<" de "<<E<<endl
+					<<"El numero de elementos ingresados al vector es "<<(e+l)<<" de "<<TAM<<endl;
+				break;	
+				
+			case 8: //salir, necesario el break para que no entre en default.
 				break;
 				
 			default:
 				cout<<"Valor no valido, reingrese después de la pausa.";
 				break;
 		}//switch
-		cin.sync();
 		cout<<endl;
+		cin.sync();
 		system("pause");
-	} while (menu!=7);
+	} while (menu!=8);
 	return 0;
 }
 
-void carDat1Producto (int N, int M, Lacteos *lac, Electronicos *elec) {
+int detPosProducto(int v, int m, Producto *vector[TAM]) {
+	int p, aux=0;
+	for (p=0; p<TAM; p++) {
+		if (typeid (*vector[p]) == typeid (Lacteos)) {
+			if (m == 1) {
+				if (aux == v)
+					return p;
+				aux++;
+			}//if menu 1
+		}//if typeid
+		else {
+			if (m == 2) {
+				if (aux == v)
+					return p;
+				aux++;
+			}//if menu 2
+		}//else if typeid
+	}//for p
+}//detPosProducto
+
+void carDat1Producto (int N, int M, Producto *vector[TAM], int P) {
 	int aux;
 	float auxf;
 	char nom[49];
 	char letra;
-	Ingrediente ing;
-	Producto *prod;
-	if (M==1) {
-		prod = lac;
-	}
-	else {
-		prod = elec;
-	}
+	Ingrediente ing;	
 	
 	switch (N) {
 		case 1:
-			cout<<"Ingrese codigo de "<<prod->getNombre()<<": ";
+			cout<<"Ingrese codigo de "<<vector[P]->getNombre()<<": ";
 			cin.sync(); cin>>aux;
-			prod->setCodigo(aux);
+			vector[P]->setCodigo(aux);
 			break;
 		case 2:
-			cout<<"Ingrese nuevo nombre de "<<prod->getNombre()<<": ";
+			cout<<"Ingrese nuevo nombre de "<<vector[P]->getNombre()<<": ";
 			cin.sync(); cin.getline(nom, 49);
-			prod->setNombre(nom);
+			vector[P]->setNombre(nom);
 			break;
 		case 3:
-			cout<<"Ingrese precio de "<<prod->getNombre()<<": ";
+			cout<<"Ingrese precio de "<<vector[P]->getNombre()<<": ";
 			cin.sync(); cin>>auxf;
-			prod->setPrecio(auxf);
+			vector[P]->setPrecio(auxf);
 			break;
 		case 4:
-			cout<<"Ingrese estado de "<<prod->getNombre()<<": ";
+			cout<<"Ingrese estado de "<<vector[P]->getNombre()<<": ";
 			cin.sync(); letra = tolower(cin.get());
-			prod->setEstado(letra);
+			vector[P]->setEstado(letra);
 			break;
 		case 5:
 			do {
-				cout<<"Ingrese cantidad de ingredientes de "<<prod->getNombre()<<": ";
+				cout<<"Ingrese cantidad de ingredientes de "<<vector[P]->getNombre()<<": ";
 				cin.sync(); cin>>aux;
 				if (aux<0) {
 					cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
@@ -261,25 +307,25 @@ void carDat1Producto (int N, int M, Lacteos *lac, Electronicos *elec) {
 				}
 				system("cls");
 			} while (aux<0);
-			prod->setCanIngredientes(aux);
+			vector[P]->setCanIngredientes(aux);
 			break;
 		case 6:
-			if (prod->getCanIngredientes()>0) {
+			if (vector[P]->getCanIngredientes()>0) {
 				do {
 					cout<<"Que ingrediente desea cambiar? "<<endl;
-					for (int i=0; i<prod->getCanIngredientes(); i++) {
-						cout<<(i+1)<<". "<<prod->getNomFormula(i)<<endl;
+					for (int i=0; i<vector[P]->getCanIngredientes(); i++) {
+						cout<<(i+1)<<". "<<vector[P]->getNomFormula(i)<<endl;
 					}
 					cin.sync(); cin>>aux;
-					if (aux<0 || aux>prod->getCanIngredientes()) {
+					if (aux<0 || aux>vector[P]->getCanIngredientes()) {
 						cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
 						system("pause");
 					}
 					system("cls");
-				} while (aux<0 || aux>prod->getCanIngredientes());
+				} while (aux<0 || aux>vector[P]->getCanIngredientes());
 				ing.cargarDatos();
 				aux -= 1;
-				prod->setFormulaIO(aux, ing);
+				vector[P]->setFormulaIO(aux, ing);
 			}
 			else
 				cout<<"El producto no tiene ingredientes.";
@@ -287,26 +333,26 @@ void carDat1Producto (int N, int M, Lacteos *lac, Electronicos *elec) {
 		case 7:
 			switch (M) {
 				case 1:
-					cout<<"Ingrese la caducidad de "<<prod->getNombre()<<": ";
+					cout<<"Ingrese la caducidad de "<<vector[P]->getNombre()<<": ";
 					cin.sync(); cin.getline(nom, 10);
-					lac->setCaducidad(nom);
+					vector[P]->setCaducidad(nom);
 					break;
 				case 2:
 					do {
-						cout<<"Ingrese el voltaje de "<<prod->getNombre()<<": ";
+						cout<<"Ingrese el voltaje de "<<vector[P]->getNombre()<<": ";
 						cin.sync(); cin>>aux;
 						if (aux<=0) {
 							cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
 							system("pause");
 						}	
 						system("cls");
-						elec->setVoltaje(aux);
+						vector[P]->setVoltaje(aux);
 					} while (aux<0);
 					break;
 			}
 			break;
 		case 8:
-			prod->cargarDatos();
+			vector[P]->cargarDatos();
 			break;
 	}
 }// carDat1Producto

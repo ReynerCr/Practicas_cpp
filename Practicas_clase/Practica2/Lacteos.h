@@ -11,10 +11,10 @@ class Lacteos: public Producto{
 		Lacteos();
 		Lacteos(int, char[], float, char, char[]);
 		
-		void setCaducidad(char[]);
-		char *getCaducidad();
-		void cargarDatos();
-		void mostrarDatos();
+		virtual void setCaducidad(char *);
+		virtual char *getCaducidad();
+		virtual void cargarDatos();
+		virtual void mostrarDatos();
 		
 		~Lacteos();
 		

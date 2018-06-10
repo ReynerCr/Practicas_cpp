@@ -20,8 +20,8 @@ class Producto {
 		Producto (int, char[], float, char, int, Ingrediente**); //parametrico pidiendo un **Ingrediente
 		Producto(int, char[], char);  //parametrico de ejemplo (clase)
 		
-		void cargarDatos();
-		void mostrarDatos();
+		virtual void cargarDatos();
+		virtual void mostrarDatos();
 		
 		void setCodigo(int);
 		void setNombre(char[]);
@@ -41,8 +41,12 @@ class Producto {
 		Ingrediente* getFormulaI(int);
 		char* getNomFormula(int);
 		
+		virtual void setCaducidad(char *);
+		virtual void setVoltaje(int);
+		virtual char* getCaducidad();
+		virtual int getVoltaje();
 		
-		~Producto(); 
+		 ~Producto(); 
 };
 
 #endif

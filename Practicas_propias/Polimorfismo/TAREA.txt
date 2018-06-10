@@ -1,2 +1,0 @@
-Producto-ingrediente-lacteos-electronicos: hacer lo mismo pero con vector polimórfico de 5 posiciones de lacteos y electrónicos.
-Contar cuantos lacteos y electrónicos hay en el vector.

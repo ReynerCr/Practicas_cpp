@@ -11,10 +11,10 @@ class Electronicos: public Producto {
 		Electronicos();  //defecto
 		Electronicos(int, char[], float, char, int);  //parametrico normal
 		
-		void setVoltaje(int);
-		int getVoltaje();
-		void cargarDatos();
-		void mostrarDatos();
+		virtual void setVoltaje(int);
+		virtual int getVoltaje();
+		virtual void cargarDatos();
+		virtual void mostrarDatos();
 		
 		~Electronicos();
 };
