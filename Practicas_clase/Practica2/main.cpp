@@ -5,12 +5,13 @@
 #include "Electronicos.h"
 #include <ctype.h>  //libreria de tolower y toupper
 #include <typeinfo>
-#define TAM 5
 
 using namespace std;
 
 int detPosProducto(int, int, Producto **);
 void carDat1Producto (int, int, Producto **, int);
+
+const int TAM = 5;
 
 int main() {
 	
@@ -20,6 +21,7 @@ int main() {
 	int l=0, e=0, L=0, E=0;
 	Producto *Productos[TAM];
 	
+	//Esto es innecesario teniendo en cuenta que en el menu de mas abajo se puede cargar uno y en ese caso, se podria crear el nuevo objeto
  	do {
  		cout<<P<<" de "<<TAM<<" elementos cargados."<<endl
 		 	<<"Que desea ingresar?"<<endl
