@@ -9,28 +9,29 @@
 using namespace std;
 
 int detPosProducto(int, int, Producto **);
+void codigoRepetido(Producto **, int, int, int); //Evitar que se repitan los codigos de los productos
 void carDat1Producto (int, int, Producto **, int);
 
 const int TAM = 5;
 
 int main() {
 	
-	//L=cantidad de elemento lacteos; E=cantidad de elementos electronicos; N= variable para switchs
+	//L=cantidad de elemento lacteos; E=cantidad de elementos electronicos; N=variable para switchs
 	//menus=menu principal; M=variable para los submenus; P=producto a modificar, o auxiliar;
 	int N, M, P=0, menu;  //variable de menus
 	int L=0, E=0;
 	Producto *Productos[TAM];
  	
 	do {
-		system("cls");
 		cout<<"1. Cargar datos de un lacteo."<<endl
 			<<"2. Cargar datos de un electronico."<<endl
 			<<"3. Mostrar datos de lacteos."<<endl
 			<<"4. Mostrar datos de electronicos"<<endl
-			<<"5. Modificar algun dato de alguna posicion de un vector."<<endl
-			<<"6. Reporte de todos los productos."<<endl
-			<<"7. Recuento de elementos ingresados."<<endl
-			<<"8. Salir."<<endl;
+			<<"5. Modificar algun dato de un producto."<<endl
+			<<"6. Modificar algun dato de un producto ingresando el codigo."<<endl
+			<<"7. Reporte de todos los productos."<<endl
+			<<"8. Recuento de elementos ingresados."<<endl
+			<<"9. Salir."<<endl;
 			
 		cin.sync();
 		cin>>menu;
@@ -41,8 +42,9 @@ int main() {
 				P = L + E;
 				if (P<TAM) {
 					Productos[P] = new Lacteos;
- 					L++;
+					L++;
 					Productos[P]->cargarDatos();
+					codigoRepetido(Productos, P, L, E);
 				}
 				else 
 					cout<<"Vector lleno.";
@@ -53,8 +55,9 @@ int main() {
 				P = L + E;
 				if (P<TAM) {
 					Productos[P] = new Electronicos;
-		 			E++;
+					E++;
 					Productos[P]->cargarDatos();
+					codigoRepetido(Productos, P, L, E);
 				}
 				else 
 					cout<<"Vector lleno.";
@@ -173,15 +176,67 @@ int main() {
 								}
 								system("cls");
 						} while (N<1 || N>8);
+						carDat1Producto(N, M, Productos, P);
 						
-						carDat1Producto(N, M, Productos, P);  //ya tengo cargada la posicion del elemento, no necesito especificar que producto cambiare.
-					
-						
+						if (N==1) {
+							codigoRepetido(Productos, P, L, E);
+						}
 					}//else para comprobar si hay produtos del valor ingresado 
 				}//else para comprobar si existe al menos 1 producto
 				break;
 			
 			case 6:
+				if (L==0 && E==0) {
+					cout<<"No hay ningun producto registrado para poder cambiarlo."<<endl;
+				} //if y else para comprobar si hay al menos 1 producto
+				else {
+					do {
+						cout<<"Ingrese el codigo del producto que desesa modificar: "; cin.sync(); cin>>P;
+						if (P<0) {
+							cout<<"Codigo no valido, reingrese luego de la pausa."<<endl;
+							system("pause");
+						}
+						system("cls");
+					} while (P<0);
+					
+					N=0;
+					while ((N<(L+E)) && (Productos[N]->getCodigo()!=P)){
+						N++;
+					}
+					
+					if (P==Productos[N]->getCodigo()) {
+						P = N;
+						(typeid(*Productos[P])==typeid(Lacteos)? M=1:M=2);
+						
+						do { //Menu para preguntar cual atributo modificar
+							cout<<"Que atributo desea modificar?"<<endl
+							<<"1. Codigo."<<endl
+							<<"2. Nombre."<<endl
+							<<"3. Precio."<<endl
+							<<"4. Estado."<<endl
+							<<"5. Cantidad de ingredientes."<<endl
+							<<"6. Ingrediente."<<endl;
+							cout<<(M==1 ?"7. Caducidad.":"7. Voltaje.")<<endl;
+							cout<<"8. Todo."<<endl;
+							cin.sync(); cin>>N;
+							if (N<1 || N>8) {
+								cout<<"Valor no valido, reingrese luego de la pausa."<<endl;
+								system("pause");
+							}
+							system("cls");
+						} while (N<1 || N>8);
+						carDat1Producto(N, M, Productos, P);
+						if (N==1) {
+							codigoRepetido(Productos, P, L, E);
+						}
+					}//if de codigo encontrado
+					else {
+						cout<<"No se encuentra producto con el codigo ingresado."<<endl;
+					}
+				}//else de comprobación de vector no vacío
+				break;
+			
+			case 7:
 				if (E==0 && L==0) {
 					cout<<"No se han cargado elementos.";
 				}
@@ -203,13 +258,13 @@ int main() {
 				}//else
 				break;
 				
-			case 7:
-				cout<<"El numero de elementos lacteos actual es de"<<L<<"."<<endl
+			case 8:
+				cout<<"El numero de elementos lacteos actual es "<<L<<"."<<endl
 					<<"El numero de elementos electronicos actual es "<<E<<"."<<endl
 					<<"El numero de elementos ingresados al vector es "<<(E+L)<<".";
 				break;	
 				
-			case 8: 
+			case 9: 
 				cout<<"Que tenga buen dia, tarde o noche.";
 				break;
 				
@@ -220,7 +275,8 @@ int main() {
 		cout<<endl;
 		cin.sync();
 		system("pause");
-	} while (menu!=8);
+		system("cls");
+	} while (menu!=9);
 	return 0;
 }
 
@@ -244,6 +300,36 @@ int detPosProducto(int v, int m, Producto *vector[TAM]) {
 	}//for p
 }//detPosProducto
 
+void codigoRepetido(Producto *vector[TAM], int p, int L, int E) {
+	int i=0, codigo;
+	//FALLO HORRIBLE, NO COMPARA CODIGOS SI SON DE DISTINTO TIPO DE PRODUCTO
+	while (i<(L+E) && vector[p]->getCodigo()!=vector[i]->getCodigo()) { //estoy segurisimo de que se pueden mejorar pero asi sirve
+		if ((i+1)!=p && (i+1)<(L+E)) {
+			i++;
+		}
+		else if ((i+1)==p && (i+2)<(L+E)) {
+			i += 2;
+		}
+		else {
+			i=(L+E)-1;
+		}
+	}
+	
+	if (p!=i && vector[p]->getCodigo()==vector[i]->getCodigo()) {
+		cout<<"Codigo repetido, reingrese el codigo: ";
+		do {
+			cin.sync(); cin>>codigo;
+			if (codigo<0) {
+				cout<<"\tCodigo debe ser mayor a cero, reingrese: ";
+			}
+		} while (codigo<0); 
+		vector[p]->setCodigo(codigo);
+		system("cls");
+		codigoRepetido(vector, p, L, E);
+	}
+	
+}//codigoRepetido
+
 void carDat1Producto (int N, int M, Producto *vector[TAM], int P) {
 	int aux;
 	float auxf;
@@ -254,7 +340,11 @@ void carDat1Producto (int N, int M, Producto *vector[TAM], int P) {
 	switch (N) {
 		case 1:
 			cout<<"Ingrese codigo de "<<vector[P]->getNombre()<<": ";
-			cin.sync(); cin>>aux;
+			do {
+				cin.sync(); cin>>aux;
+				if (aux<0) 
+					cout<<"\tCodigo debe ser mayor o igual a cero, reingrese: ";			
+			} while (aux<0);
 			vector[P]->setCodigo(aux);
 			break;
 		case 2:
