@@ -15,38 +15,11 @@ const int TAM = 5;
 
 int main() {
 	
-	//l=iterador de lacteos; e=interador de electronicos;  L=cantidad de elemento lacteos; E=cantidad de elemento electros; N= variable para switchs
+	//L=cantidad de elemento lacteos; E=cantidad de elementos electronicos; N= variable para switchs
 	//menus=menu principal; M=variable para los submenus; P=producto a modificar, o auxiliar;
 	int N, M, P=0, menu;  //variable de menus
-	int l=0, e=0, L=0, E=0;
+	int L=0, E=0;
 	Producto *Productos[TAM];
-	
-	//Esto es innecesario teniendo en cuenta que en el menu de mas abajo se puede cargar uno y en ese caso, se podria crear el nuevo objeto
- 	do {
- 		cout<<P<<" de "<<TAM<<" elementos cargados."<<endl
-		 	<<"Que desea ingresar?"<<endl
- 			<<"1. Lacteo."<<endl
- 			<<"2. Electronico."<<endl;
- 		
- 		cin.sync();
- 		cin>>menu;
- 		
- 		if (menu==1) {
- 			Productos[P] = new Lacteos;
- 			L++;
-		}
-		else if (menu==2) {
-		 	Productos[P] = new Electronicos;
-		 	E++;
-		}
-		else {
-			cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
-			system("pause");
-			P--;
-		}
-		system("cls");
- 		P++;
-	 } while (P<TAM);
  	
 	do {
 		system("cls");
@@ -65,30 +38,32 @@ int main() {
 		system("cls");
 		switch (menu) {
 			case 1:
-				if (l<L) {
-					cout<<"Cargados "<<l<<" de "<<L<<" elementos lacteos."<<endl;
-					Productos[detPosProducto(l, menu, Productos)]->cargarDatos();
-					l++;
+				P = L + E;
+				if (P<TAM) {
+					Productos[P] = new Lacteos;
+ 					L++;
+					Productos[P]->cargarDatos();
 				}
 				else 
-					cout<<"No se puede cargar lacteo.";
-				
+					cout<<"Vector lleno.";
+					
 				break;
 				
 			case 2:
-				if (e<E) {
-					cout<<"Cargados "<<e<<" de "<<E<<" elementos electronicos."<<endl;
-					Productos[detPosProducto(e, menu, Productos)]->cargarDatos();
-					e++;
+				P = L + E;
+				if (P<TAM) {
+					Productos[P] = new Electronicos;
+		 			E++;
+					Productos[P]->cargarDatos();
 				}
 				else 
-					cout<<"No se puede cargar electronicos.";
+					cout<<"Vector lleno.";
 				break;
 				
 			case 3:
-				if (l>0) {
+				if (L>0) {
 					int i=0, aux=0;
-					while (aux<l && i<TAM) {
+					while (aux<L && i<TAM) {
 						if (typeid (*Productos[i]) == typeid (Lacteos)) {
 							cout<<(aux+1)<<". ";
 							Productos[i]->mostrarDatos();
@@ -97,15 +72,15 @@ int main() {
 						}//if typeid
 						i++;
 					}//while
-				}//if l
+				}//if L
 				else 
 					cout<<"No se han cargado elementos lacteos.";
 				break;
 				
 			case 4:
-				if (e>0) {
+				if (E>0) {
 					int i=0, aux=0;
-					while (aux<e && i<TAM) {
+					while (aux<E && i<TAM) {
 						if (typeid (*Productos[i]) == typeid (Electronicos)) {
 							cout<<(aux+1)<<". ";
 							Productos[i]->mostrarDatos();
@@ -114,13 +89,13 @@ int main() {
 						}//if typeid
 						i++;
 					}//while
-				}//if e
+				}//if E
 				else  
 					cout<<"No se han cargado elementos electronicos.";
 				break;
 				
 			case 5:
-				if (l==0 && e==0) {
+				if (L==0 && E==0) {
 					cout<<"No hay ningun producto registrado para poder cambiarlo."<<endl;
 				} //if y else para comprobar si hay al menos 1 producto
 				else {
@@ -136,11 +111,11 @@ int main() {
 						system("cls");
 					 } while (M<1 || M>2); //validacion de M
 					 
-					if (M==1 && l==0) {
+					if (M==1 && L==0) {
 						cout<<"No hay lacteos registrados."<<endl;
 					}
 					
-					else if (M==2 && e==0) {
+					else if (M==2 && E==0) {
 						cout<<"No hay electronicos registrados."<<endl;
 					}
 					
@@ -150,7 +125,7 @@ int main() {
 							int i=0, aux=0;
 							
 							if (M==1) {
-								while (aux<l && i<TAM) {
+								while (aux<L && i<TAM) {
 									if (typeid (*Productos[i]) == typeid (Lacteos)) {
 										cout<<(aux+1)<<". "<<Productos[i]->getNombre()<<endl;
 										aux++;
@@ -159,7 +134,7 @@ int main() {
 								}//while
 							}//else M==1
 							else {
-								while (aux<e && i<TAM) {
+								while (aux<E && i<TAM) {
 									if (typeid (*Productos[i]) == typeid (Electronicos)) {
 										cout<<(aux+1)<<". "<<Productos[i]->getNombre()<<endl;
 										aux++;
@@ -172,12 +147,12 @@ int main() {
 							cin>>P;
 							P--;
 							
-							if (P<0 || (M==1 ?P>=l:P>=e)) {
+							if (P<0 || (M==1 ?P>=L:P>=E)) {
 								cout<<"Valor no valido, reingrese luego de la pausa."<<endl;
 								system("pause");
 							}
 							system("cls");
-						} while (P<0 || (M==1 ?P>=l:P>=e)); //validacion de P
+						} while (P<0 || (M==1 ?P>=L:P>=E)); //validacion de P
 						
 						P = detPosProducto(P, M, Productos);
 						
@@ -199,22 +174,19 @@ int main() {
 								system("cls");
 						} while (N<1 || N>8);
 						
-						if (M==1) {
-							carDat1Producto(N, M, Productos, P);
-						}
-						else {
-							carDat1Producto(N, M, Productos, P);
-						}
+						carDat1Producto(N, M, Productos, P);  //ya tengo cargada la posicion del elemento, no necesito especificar que producto cambiare.
+					
+						
 					}//else para comprobar si hay produtos del valor ingresado 
 				}//else para comprobar si existe al menos 1 producto
 				break;
 			
 			case 6:
-				if (e==0 && l==0) {
+				if (E==0 && L==0) {
 					cout<<"No se han cargado elementos.";
 				}
 				else {
-					for (int i=0; i<(l+e); i++)  { //Reporte de los elementos de lacteos
+					for (int i=0; i<(L+E); i++)  { //Reporte de los elementos de lacteos
 						if (Productos[i]->getCodigo() >= 0) {
 							cout<<Productos[i]->getCodigo()<<"\t"<<Productos[i]->getNombre()<<"\t"<<Productos[i]->getPrecio()<<"\t"<<Productos[i]->getEstado()<<(typeid (*Productos[i]) == typeid (Lacteos) ?"\tLacteo\t":"\tElectronico\t")<<Productos[i]->getCanIngredientes();
 							if (Productos[i]->getCanIngredientes()>0) {
@@ -232,12 +204,13 @@ int main() {
 				break;
 				
 			case 7:
-				cout<<"El numero de elementos lacteos actual es "<<l<<" de "<<L<<endl
-					<<"El numero de elementos electronicos actual es "<<e<<" de "<<E<<endl
-					<<"El numero de elementos ingresados al vector es "<<(e+l)<<" de "<<TAM<<endl;
+				cout<<"El numero de elementos lacteos actual es de"<<L<<"."<<endl
+					<<"El numero de elementos electronicos actual es "<<E<<"."<<endl
+					<<"El numero de elementos ingresados al vector es "<<(E+L)<<".";
 				break;	
 				
-			case 8: //salir, necesario el break para que no entre en default.
+			case 8: 
+				cout<<"Que tenga buen dia, tarde o noche.";
 				break;
 				
 			default:
