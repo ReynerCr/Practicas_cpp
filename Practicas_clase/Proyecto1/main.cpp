@@ -12,17 +12,14 @@
  
 using namespace std;
 
-const int TAM = 7;
-
 void acomodarDato(Tanque *, float, int);
 
 int main() {
 	Informacion *info = new Informacion();
+	const float precioFibra = info->getPrecioFibra();
+	int TAM = info->getLongitud();
 	Tanque *vtanques[TAM];
 	char *ptr;
-	const float precioFibra = info->getPrecioFibra();
-	
-	char cadena[25];
 	
 	for (int i=0; i<TAM; i++) {
 		float aux;
@@ -44,19 +41,12 @@ int main() {
 			acomodarDato(vtanques[i], aux, contador);
 			contador++;
 		}		
-	vtanques[i]->calcularSuperficie();
-	vtanques[i]->calcularPrecio(precioFibra);
+		vtanques[i]->calcularSuperficie();
+		vtanques[i]->calcularPrecio(precioFibra);
 	}//for para cargar los datos;
 	
 	delete info;
-	
-	cout<<"Datos de los tanques: "<<endl;
-	for (int i=0; i<TAM; i++) {
-		vtanques[i]->mostrarDatos();
-	}
-	cin.get();
-	system("cls");
-	
+	//-------- AÑADIR ATRIBUTO COLOR EN TANQUE, SU SETTER Y GETTER
 	int menu, n;
 	do {
 		cout<<"1. Calcular el precio de venta de un tanque dado."<<endl
@@ -66,10 +56,31 @@ int main() {
         	<<"5. Salir."<<endl;
         cin>>menu;
         int sumatoria = 0;
+        system("cls");
         switch (menu) {
 			case 1:
-				cout<<"Ingrese el codigo del tanque que quiera consultar: (no terminado) "; cin>>n;
-				
+				cout<<"Ingrese el codigo del tanque que quiera consultar: "; cin>>n;
+				//reusare sumatoria como un iterador;
+				if (n>=0) {
+					while (sumatoria<TAM && n!=-1) {
+						if (vtanques[sumatoria]->getCodigo()==n) {
+							n=-1;
+							sumatoria--;
+						}
+						sumatoria++;
+					}//while
+					
+					if (n==-1) {
+						cout<<"Datos del tanque:"<<endl;
+						vtanques[sumatoria]->mostrarDatos();
+					}
+					else {
+						cout<<"El codigo ingresado no coincide con ninguno de los tanques."<<endl;
+					}
+				}//if n>=0	
+				else {
+					cout<<"Codigo debe ser mayor a cero."<<endl;
+				}
 				break;
 				
 			case 2:

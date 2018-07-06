@@ -13,15 +13,15 @@ TanqueConico::TanqueConico(float, float, float, float) {
 }
 		
 void TanqueConico::calcularSuperficie() {
-	double aux;
+	float aux;
 	const float pi = 3.141592654;
-	aux = (pi*(pow((diametroSuperior/2), 2) + pow((diametroInferior/2), 2))) + ((pow (altura, 1.33)) / (tan(2*angulo))); 
+	aux = (pi*(pow((diametroSuperior/2), 2) + pow((diametroInferior/2), 2))) + ((pow (altura, 1.33)) / (tan((2*angulo)*(pi/180)))); 
 	this->Tanque::setSuperficie(aux);
 }
 
 void TanqueConico::calcularPrecio(float precioFibra) {
-	long double aux;
-	aux = ((precioFibra)*this->Tanque::getSuperficie())*1.20;
+	unsigned long long aux;
+	aux = (int)((precioFibra * this->Tanque::getSuperficie()) * 1.20);
 	this->Tanque::setPrecio(aux);
 }
 
@@ -58,12 +58,11 @@ float TanqueConico::getAngulo() {
 }
 
 void TanqueConico::mostrarDatos() {
-	cout<<endl<<"Conico: ";
 	this->Tanque::mostrarDatos();
-	cout<<"diametro superior: "<<this->diametroSuperior<<endl
-		<<"diametro inferior: "<<this->diametroInferior<<endl
-		<<"altura: "<<altura<<endl
-		<<"angulo: "<<angulo<<endl;
+	cout<<"Diametro superior: "<<this->diametroSuperior<<"."<<endl
+		<<"Diametro inferior: "<<this->diametroInferior<<"."<<endl
+		<<"Altura: "<<altura<<"."<<endl
+		<<"Angulo: "<<angulo<<"."<<endl;
 }
 
 TanqueConico::~TanqueConico() { }

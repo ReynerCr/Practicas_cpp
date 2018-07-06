@@ -13,10 +13,6 @@ Informacion::Informacion(){
    strcpy(datos[5],"1-234-30-12");   
    strcpy(datos[6],"2-147-27-20-14-20");
 
-	/*El segundo número es el código del tanque, y el resto de números
-depende si se trata de un tanque cilíndrico viene el diámetro de la tapa y la altura; si es cónico
-vienen el diámetro superior, diámetro inferior, altura y ángulo ß*/
-
    precioFibra=2340.0;
 }
 char * Informacion::getDatos(int i){

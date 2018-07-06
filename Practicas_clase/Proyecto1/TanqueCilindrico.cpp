@@ -9,21 +9,21 @@ TanqueCilindrico::TanqueCilindrico() {
 
 }
 
-TanqueCilindrico::TanqueCilindrico(int codigo, long double precio, float altura) { 
+TanqueCilindrico::TanqueCilindrico(int codigo, float, float altura) { 
 
 }
 
 		
 void TanqueCilindrico::calcularSuperficie() {
-	double aux;
+	float aux;
 	const float pi = 3.141592654;
 	aux = ((pi*((diametroTapa/2)*(diametroTapa/2))*2)) + (2*pi*(diametroTapa/2)*altura);
 	this->Tanque::setSuperficie(aux);
 }
 
 void TanqueCilindrico::calcularPrecio(float precioFibra) {
-	long double aux;
-	aux = ((precioFibra)*this->Tanque::getSuperficie())*1.20;
+	unsigned long long aux;
+	aux = (int)((precioFibra * this->Tanque::getSuperficie()) * 1.20);
 	this->Tanque::setPrecio(aux);
 }
 
@@ -44,10 +44,9 @@ float TanqueCilindrico::getAltura() {
 }
 
 void TanqueCilindrico::mostrarDatos() {
-	cout<<endl<<"Cilindrico: ";
 	this->Tanque::mostrarDatos();
-	cout<<"diametro tapa: "<<this->diametroTapa<<endl
-		<<"altura: "<<altura<<endl;
+	cout<<"Diametro de la tapa: "<<this->diametroTapa<<"."<<endl
+		<<"Altura: "<<altura<<"."<<endl;
 }
 
 TanqueCilindrico::~TanqueCilindrico() { }

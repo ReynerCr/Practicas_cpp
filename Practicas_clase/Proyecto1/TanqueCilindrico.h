@@ -10,7 +10,7 @@ class TanqueCilindrico : public Tanque {
 		
 	public:
 		TanqueCilindrico();
-		TanqueCilindrico(int, long double, float);
+		TanqueCilindrico(int, float, float);
 		
 		void calcularSuperficie();
 		void calcularPrecio(float);
