@@ -7,17 +7,17 @@ using namespace std;
 
 
 TanqueConico::TanqueConico() {
-	this->diametroSuperior = 0.0; 
-	this->diametroInferior = 0.0;
-	this->altura = 0.0;
-	this->angulo = 0.0;
+		diametroSuperior = 0.0;
+		diametroInferior = 0.0;
+		altura = 0.0;
+		angulo = 0.0;
 }
 
 TanqueConico::TanqueConico(float diametroSuperior, float diametroInferior, float altura, float angulo) {
-	this->diametroSuperior = diametroSuperior; 
-	this->diametroInferior = diametroInferior;
-	this->altura = altura;
-	this->angulo = angulo;
+		this->diametroSuperior = diametroSuperior;
+		this->diametroInferior = diametroInferior;
+		this->altura = altura;
+		this->angulo = angulo;
 }
 		
 void TanqueConico::calcularSuperficie() {

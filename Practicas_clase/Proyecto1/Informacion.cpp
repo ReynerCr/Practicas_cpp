@@ -16,9 +16,9 @@ Informacion::Informacion(){
    precioFibra=2340.0;
 }
 char * Informacion::getDatos(int i){
-	//if (i>=0 && i <this->getLongitud()) 
+	if (i>=0 && i <this->getLongitud()) 
 	   return datos[i];
-	//else return 0;
+	else return 0;
 }
 
 float Informacion::getPrecioFibra(){

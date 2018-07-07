@@ -7,6 +7,7 @@ class Tanque
 		int codigo; 
 		unsigned long long precio; 
 		float superficie; 
+		char color[15];
 		
 	public:
 		Tanque();
@@ -15,11 +16,13 @@ class Tanque
 		void setCodigo(int);
 		void setPrecio(unsigned long long);
 		void setSuperficie(float);
+		void setColor(char *);
 		int getCodigo();
 		unsigned long long getPrecio();
 		float getSuperficie();
+		char* getColor();
 		
-		//setterTanqueCilindrico
+		//setter TanqueCilindrico
 		virtual void setDiamTapa(float);
 		virtual void setAltura(float) =0;
 		

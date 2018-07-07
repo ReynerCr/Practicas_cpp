@@ -27,6 +27,10 @@ void Tanque::setSuperficie(float superficie) {
 	this->superficie = superficie;
 }
 
+void Tanque::setColor(char color[15]) {
+	strcpy(this->color, color);
+}
+
 int Tanque::getCodigo() {
 	return this->codigo;
 }
@@ -39,6 +43,10 @@ float Tanque::getSuperficie() {
 	return this->superficie;
 }
 
+char* Tanque::getColor() {
+	return this->color;
+}
+
 void Tanque::setDiamTapa(float) { }
 void Tanque::setDiamSuperior(float) { }
 void Tanque::setDiamInferior(float) { }
@@ -47,7 +55,8 @@ void Tanque::setAngulo(float) { }
 void Tanque::mostrarDatos() {
 	cout<<"Codigo: "<<codigo<<"."<<endl
 		<<"Precio: "<<precio<<" bs."<<endl
-		<<"Superficie: "<<superficie<<" metros cubicos."<<endl;
+		<<"Superficie: "<<superficie<<" metros cuadrados."<<endl
+		<<"Color: "<<color<<endl;
 }
 
 Tanque::~Tanque() { }
