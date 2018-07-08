@@ -4,19 +4,19 @@
 class Informacion
 {
 	private:
-		char datos1[];
-		char datos2[];
+		char datos1[3][30];
+		char datos2[3][30];
 		
-		unsigned int mascaraCifrado;
 		//dato datos2 datos cedula-datocifrado; dato cifrado bits 1 al 6 son edad.
 		
 	public:
 		Informacion();
-		char *getDatos1 (int);
-		char *getDatos2 (int);
 		
-		void descifrarEdad();
-		int getCedula();
+		int getLongitud1();
+		int getLongitud2();
+		
+		char * getDatos1 (int);
+		char * getDatos2 (int);
 		
 		~Informacion();
 };

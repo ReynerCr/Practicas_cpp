@@ -6,15 +6,18 @@ class Persona
 	private:
 		int cedula;
 		int edad;
-		char nombre;
+		char nombre[40];
 		
 	public:
 		Persona();
-		persona(int, char*, char*);
+		Persona(int, int, char[]);
 		
 		void setCedula(int);
-		void setNombre(char*);
 		void setEdad(int);
+		void setNombre(char*);
+		int getCedula();
+		int getEdad();
+		char *getNombre();
 		
 		~Persona();
 };

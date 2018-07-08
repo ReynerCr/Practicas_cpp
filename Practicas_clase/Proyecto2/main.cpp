@@ -152,6 +152,7 @@ int main() {
 			default:
 				cout<<"Valor no valido, reingrese despues de la pausa."<<endl;
 		}//switch
+		cout<<endl;
 		system("pause");
 		system("cls");
 	} while (menu!=5);
@@ -162,22 +163,22 @@ void manejoBits(unsigned int cifrado, Tanque *tanque) {
 	unsigned int mascaraVar;
 	if (typeid(*tanque)==typeid(TanqueCilindrico)) {
 		mascaraVar = 254; //altura
-		tanque->setAltura(((float)(mascaraVar & cifrado)));
+		tanque->setAltura((float)((mascaraVar & cifrado)>>1));
 		
 		mascaraVar = 65024;
-		tanque->setDiamTapa(((float)((mascaraVar & cifrado)>>8)));
+		tanque->setDiamTapa(((float)((mascaraVar & cifrado)>>9)));
 	}//si es TanqueCilindrico
 	else {
 		mascaraVar = 254; //angulo B
-		tanque->setAngulo(((float)(mascaraVar & cifrado)));
+		tanque->setAngulo(((float)((mascaraVar & cifrado)>>1)));
 		
-		mascaraVar = 65024;
-		tanque->setAltura(((float)((mascaraVar & cifrado)>>8)));
+		mascaraVar = 65024; //altura
+		tanque->setAltura(((float)((mascaraVar & cifrado)>>9)));
 		
-		mascaraVar = 16646144;
-		tanque->setDiamInferior(((float)((mascaraVar & cifrado)>>16)));
+		mascaraVar = 16646144; //diametroInferior
+		tanque->setDiamInferior(((float)((mascaraVar & cifrado)>>17)));
 					 
-		mascaraVar = 4261412864;
-		tanque->setDiamSuperior(((float)((mascaraVar & cifrado)>>24)));
+		mascaraVar = 4261412864; //diametroSuperior
+		tanque->setDiamSuperior(((float)((mascaraVar & cifrado)>>25)));
 	}//o si es TanqueConico
 }

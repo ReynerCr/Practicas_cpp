@@ -15,7 +15,7 @@ Informacion::Informacion(){
    
    strcpy(datosAtribTanque[0],"123-336463902");    
    strcpy(datosAtribTanque[1],"456-740560424");    
-   strcpy(datosAtribTanque[2],"345-7690");         
+   strcpy(datosAtribTanque[2],"345-7690");      
    strcpy(datosAtribTanque[3],"890-11796");	         
    strcpy(datosAtribTanque[4],"147-908598312");      
    strcpy(datosAtribTanque[5],"234-15384");             
