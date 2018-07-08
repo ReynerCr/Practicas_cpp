@@ -301,33 +301,23 @@ int detPosProducto(int v, int m, Producto *vector[TAM]) {
 }//detPosProducto
 
 void codigoRepetido(Producto *vector[TAM], int p, int L, int E) {
-	int i=0, codigo;
-	//FALLO HORRIBLE, NO COMPARA CODIGOS SI SON DE DISTINTO TIPO DE PRODUCTO
-	while (i<(L+E) && vector[p]->getCodigo()!=vector[i]->getCodigo()) { //estoy segurisimo de que se pueden mejorar pero asi sirve
-		if ((i+1)!=p && (i+1)<(L+E)) {
-			i++;
-		}
-		else if ((i+1)==p && (i+2)<(L+E)) {
-			i += 2;
-		}
-		else {
-			i=(L+E)-1;
-		}
-	}
+	int codigo;
 	
-	if (p!=i && vector[p]->getCodigo()==vector[i]->getCodigo()) {
-		cout<<"Codigo repetido, reingrese el codigo: ";
-		do {
-			cin.sync(); cin>>codigo;
-			if (codigo<0) {
-				cout<<"\tCodigo debe ser mayor a cero, reingrese: ";
-			}
-		} while (codigo<0); 
-		vector[p]->setCodigo(codigo);
-		system("cls");
-		codigoRepetido(vector, p, L, E);
-	}
-	
+	for (int i=0; i<(L+E); i++) {
+		if (i!=p && (vector[p]->getCodigo())==(vector[i]->getCodigo())) {
+			cout<<"Codigo repetido, reingrese el codigo: ";
+			do {
+				cin.sync(); cin>>codigo;
+				if (codigo<0) {
+					cout<<"\tCodigo debe ser mayor a cero, reingrese: ";
+				}
+			} while (codigo<0); 
+			vector[p]->setCodigo(codigo);
+			system("cls");
+			codigoRepetido(vector, p, L, E);
+			break;
+		}//if
+	}//for
 }//codigoRepetido
 
 void carDat1Producto (int N, int M, Producto *vector[TAM], int P) {
